@@ -1,0 +1,43 @@
+1.
+	1.a) Business client background
+		
+		- Vet clinic with experienced veterinarians
+		- Need assistance in deciding drugs/prescriptions
+		
+		- Need centralized view of historical data
+		- Specialized dog vets need higher level of info available to them
+			- Breeding groups
+			- Breeding purpose
+		
+		- Implementation and analytics based on active ingredients
+	
+	1.b) IT infrastructure
+		
+		- Computer Hardware:
+			- A computer for each vet and a central one could be assumed
+			- Maybe an online server provided by a service
+		
+		- OS:
+			- Windows on every computer
+			- Possibly linux on the server
+		
+		- Enterprise Software apps: 
+			- Office
+		
+		- Networking/Telecom:
+			- Will need something for the server
+		
+		- Data management:
+			- The server
+		
+		- Consultants and system integrators:
+			- No one
+		
+		- Internet platforms:
+			- Basic browser
+			- Will need one for the server
+			- Front and back end for the UI
+	
+	1.c) 
+		
+		

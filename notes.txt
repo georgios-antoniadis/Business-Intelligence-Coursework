@@ -1,0 +1,137 @@
+ACTUAL API: https://api.fda.gov/animalandveterinary/event.json
+
+TOTAL NUMBER OF ENTRIES: 1.024.502
+
+SEARCHING FOR INNER FEATURES: largeCategory.subCategory.etc=TermLookingFor
+
+FIELDS: 87 in total
+
+==========================================================================================================================================================================
+ANSWERING THE QUESTIONS:
+==========================================================================================================================================================================
+
+What we will need to retrieve
+1) Most common reactions for every breed:
+    reactions
+    breed
+    active substance
+
+2) Most common active ingredients causing reactions:
+    reactions (in numbers)
+    active ingredient
+    sample size
+    reaction per doses
+
+3) Size and correlated reactions and outcome:
+    size of animal
+    breed of animal?
+    reaction
+    outcome
+
+4) Size and correlated reactions and outcome:
+    gender of animal
+    breed of animal?
+    reaction
+    outcome
+
+5) Geographic distribution of events:
+    event
+    reaction
+    outcome
+
+6) Days until reaction appearence
+    reaction days
+    reaction
+    active ingredient
+
+7) Statistics for breeding groups
+    breed
+    reactions
+    outcomes
+    geographical
+
+8) Statistics for breeding purspoe
+    breed group
+    breed purpose 
+    reactions
+    outcomes
+    geographical
+
+==========================================================================================================================================================================
+DATA 
+==========================================================================================================================================================================
+
+Data imputation:
+1) Route 
+2) atc_vet_code
+3) dosage form 
+4) manufacturer registration_number
+5) used_according_to_label
+6) off_label_use
+7) outcome
+8) reproductive_status
+9) weight
+10) female_animal_physiological_status
+
+
+Data that needs fixing in terms of form:
+1) Dates
+2) Form of dose -> numer/denominator
+3) is_crossbred may be wrong -> check for crossbred in animal breed 
+
+==========================================================================================================================================================================
+SQL TABLES
+==========================================================================================================================================================================
+
+Tables for sure:
+1) Active ingredients
+2) Vets
+3) Animal case
+    3.1) case id
+    3.2) species
+    3.3) breed id
+    3.4) number
+    3.5 - 3.7) characteristics
+    3.8) reaction
+    3.9) outcome
+4) Animal breeds
+    4.1) breed id
+    4.2) crossbred
+5) Veddra 
+    5.1) Reaction 
+    5.2) Column with total animals affected
+    5.3) Name 
+6) Geographical data
+    6.1) geo id
+    6.2) country
+    6.3) city/state 
+7) Reaction 
+
+==========================================================================================================================================================================
+COMMENTS ON DATA
+==========================================================================================================================================================================
+
+1) Many animals were treated with a number of supplements at once
+    1.2) Need to take into consideration
+    1.3) Possible find -> Events with two or more drugs NEW QUESTION TO ANSWER
+
+==========================================================================================================================================================================
+IT SYSTEMS
+==========================================================================================================================================================================
+
+
+==========================================================================================================================================================================
+STAGING ENVIRONMENT
+==========================================================================================================================================================================
+
+
+==========================================================================================================================================================================
+DATA WAREHOUSE
+==========================================================================================================================================================================
+
+
+==========================================================================================================================================================================
+FRONT END
+==========================================================================================================================================================================
+
+
