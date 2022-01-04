@@ -1,20 +1,35 @@
-import numpy as np
-import pandas as pd
 import json
-from pandas_profiling import ProfileReport
 import os
+from transform import *
 
 datadir = ('../allData')
 
 fileList = os.listdir(datadir)
 
-print(len(fileList))
+# data = json.load(open(datadir+"/2007q2.json"))
 
-data = json.load(open(datadir+"/2007q2.json"))
+def readFile(dir):
+    file = dir
+    data = json.load(open(file))
+    results = data['results']
 
-print(data['results'][0]['reaction'])
+    return results
 
-print(data['results'][0]['reaction'][0])
+
+
+results = readFile(datadir+"/2007q2.json")
+
+for i in range(len(results)):
+
+    result = results[i]
+
+    if filtering(result['animal']['species']):
+        react = reactions(result['reaction'])
+        print('Reactions: ', react)
+
+        # drugs = drugs(result['drug'])
+        # print('Drugs')
+
 
 # How am I gonna store mutliple reactions?
 '''
