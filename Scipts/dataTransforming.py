@@ -36,5 +36,24 @@ def filtering(file):
     
     print(len(nonHumanresults))
 
+def reactions(results):
 
-clearHumans('../allData/2007q2.json')
+    reactions = []
+
+    for i in range(len(results)):
+
+        reaction = results[i]['reaction']
+        numOfReactions = len(reaction)
+
+        if len(numOfReactions) > 1:
+            for react in reaction:
+                reactions.append(react)
+        else:
+            reactions.append()
+
+datadir = ("../allData")
+
+fileList = os.listdir(datadir)
+
+for file in fileList:
+    filtering(file)

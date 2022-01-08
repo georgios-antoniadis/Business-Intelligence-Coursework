@@ -23,12 +23,25 @@ for i in range(len(results)):
 
     result = results[i]
 
-    if filtering(result['animal']['species']):
-        react = reactions(result['reaction'])
-        print('Reactions: ', react)
+    reactionKey = 'reaction'
 
-        # drugs = drugs(result['drug'])
-        # print('Drugs')
+    speciesKey = 'species'
+
+    if reactionKey in result.keys():
+
+        try: 
+            if filtering(result['animal']['species']): #Excluding human results
+                react = reactions(result['reaction'])
+
+                dru = drugs(result['drug'])
+                # print('Drugs')
+    
+        except KeyError:
+            react = reactions(result['reaction'])
+            # print('Reactions: ', react)
+            
+            dru = drugs(result['drug'])
+            # print('Drugs')
 
 
 # How am I gonna store mutliple reactions?
