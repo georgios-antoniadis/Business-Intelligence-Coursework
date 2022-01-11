@@ -208,12 +208,25 @@ for row in records:
         ae_reappeared_after_resuming_drug = row[25]  
     
     dosage_form = row[5]
-    used_according_to_label = row[9]  
+
+    if row[9] == 'NaN':
+        used_according_to_label = None
+    else:   
+        used_according_to_label = row[9]  
 
     first_exposure_date = row[12]
     last_exposure_date = row[13] 
-    previous_exposure_to_drug = row[15]  
-    previous_ae_to_drug = row[16]
+
+    if row[15] == 'NaN':
+        previous_exposure_to_drug = None
+    else:   
+        previous_exposure_to_drug = row[15]  
+
+    if row[16] == 'NaN':
+        previous_ae_to_drug = None
+    else:   
+        previous_ae_to_drug = row[16]  
+
 
     insert_drug2 = """
     INSERT INTO dw.drug(  
@@ -232,10 +245,13 @@ for row in records:
         ae_abated_after_stopping_drug,        
         ae_reappeared_after_resuming_drug
         )                            
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """
 
-    drugvalues = [drug_id,route, route, dosage_form,\
+    drugvalues = [\
+        drug_id,
+        route, 
+        dosage_form,
         used_according_to_label,
         off_label_use,
         first_exposure_date,
@@ -246,11 +262,8 @@ for row in records:
         frequency_of_administration_value,    
         frequency_of_administration_unit,                           
         ae_abated_after_stopping_drug,        
-        ae_reappeared_after_resuming_drug,
+        ae_reappeared_after_resuming_drug
         ]
-
-    for item in drugvalues:
-        print(type(item))
 
     cursor.execute(insert_drug2, drugvalues)
 
@@ -278,6 +291,7 @@ cursor.execute(incident_select_Query)
 records = cursor.fetchall()
 counter = 1
 for row in records:
+
     aer = row[0]
     original_receive_date = row[2]
     number_of_animals_affected = row[3]
@@ -329,7 +343,10 @@ for row in records:
     else:
         reproductive_status = row[29]
 
-    treated_for_ae = row[30]
+    if row[30] == 'NaN':
+        treated_for_ae = None
+    else:
+        treated_for_ae = row[30]
 
     if row[31] == []:
         time_between_exposure_and_onset = 'unknown'
@@ -354,8 +371,8 @@ for row in records:
         age,                                 
         age_unit, 	                         
         "weight_kg",    	                    
-        breed is_crossbred, 	                 
-        breed breed_component, 	             
+        is_crossbred, 	                 
+        breed_component, 	             
         reproductive_status 
         )	                                
     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
@@ -385,7 +402,7 @@ for row in records:
         time_between_exposure_and_onset,      
         treated_for_ae
         )                     	                                
-    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
     """ 
 
     cursor.execute(insert_incident,[\
@@ -405,7 +422,7 @@ for row in records:
             animal_id,
             aer
             )
-        VALUES(%s)
+        VALUES(%s,%s)
     """
 
     cursor.execute(insert_facts4, [animal_id,aer])
