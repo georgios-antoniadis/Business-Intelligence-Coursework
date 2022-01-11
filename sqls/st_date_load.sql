@@ -1,7 +1,7 @@
-CREATE Schema IF NOT EXISTS staging;
+--CREATE Schema IF NOT EXISTS staging;
 DROP TABLE if exists staging.date;
 
-CREATE TABLE staging.date
+CREATE TABLE dw.date
 (
   date_dim_id              INT NOT NULL,
   date_actual              DATE NOT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE staging.date
   weekend_indr             BOOLEAN NOT NULL
 );
 
-ALTER TABLE staging.date ADD CONSTRAINT d_date_date_dim_id_pk PRIMARY KEY (date_dim_id);
+ALTER TABLE dw.date ADD CONSTRAINT d_date_date_dim_id_pk PRIMARY KEY (date_dim_id);
 
 CREATE INDEX d_date_date_actual_idx
-  ON staging.date(date_actual);
+  ON dw.date(date_actual);
 
 COMMIT;
 
-INSERT INTO staging.date
+INSERT INTO dw.date
 SELECT TO_CHAR(datum,'yyyymmdd')::INT AS date_dim_id,
        datum AS date_actual,
        EXTRACT(epoch FROM datum) AS epoch,
@@ -83,8 +83,8 @@ SELECT TO_CHAR(datum,'yyyymmdd')::INT AS date_dim_id,
          WHEN EXTRACT(isodow FROM datum) IN (6,7) THEN TRUE
          ELSE FALSE
        END AS weekend_indr
-FROM (SELECT '1992-01-01'::DATE+ SEQUENCE.DAY AS datum
-      FROM GENERATE_SERIES (0,3650) AS SEQUENCE (DAY)
+FROM (SELECT '1985-01-01'::DATE+ SEQUENCE.DAY AS datum
+      FROM GENERATE_SERIES (0,42002) AS SEQUENCE (DAY)
       GROUP BY SEQUENCE.DAY) DQ
 ORDER BY 1;
 
