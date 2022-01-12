@@ -22,7 +22,7 @@ cursor.execute(reaction_select_Query)
 records = cursor.fetchall()
 counter = 1 #For the id
 for row in records:
-    reaction_id = 'REACTION' + str(counter)
+    p_record_id = row[0]
     
     if row[2] == []:
         ved_version = 'unknown'
@@ -53,17 +53,7 @@ for row in records:
     VALUES (%s, %s, %s, %s, %s)
     """
 
-    cursor.execute(insert_reaction,[reaction_id, ved_version, ved_term_code, ved_term_name, animals_affected])
-
-    insert_facts1 = """
-
-        INSERT INTO dw.fact(
-            reaction_id
-        )
-        VALUES(%s)
-    """
-
-    cursor.execute(insert_facts1, [reaction_id])
+    cursor.execute(insert_reaction,[p_record_id, ved_version, ved_term_code, ved_term_name, animals_affected])
 
 
 ##################################################################
@@ -80,7 +70,7 @@ cursor.execute(outcome_select_Query)
 records = cursor.fetchall()
 counter = 1 #For the id
 for row in records:
-    outcome_id = 'OUTCOME' + str(counter)
+    p_record_id = row[0]
     
     if row[2] == []:
         medical_status = 'unknown'
@@ -100,17 +90,8 @@ for row in records:
     VALUES (%s, %s, %s)
     """
 
-    cursor.execute(insert_outcome,[outcome_id, medical_status, number_of_animals_affected])
+    cursor.execute(insert_outcome,[p_record_id, medical_status, number_of_animals_affected])
 
-    insert_facts2 = """
-
-        INSERT INTO dw.fact(
-            outcome_id
-        )
-        VALUES(%s)
-    """
-
-    cursor.execute(insert_facts2, [outcome_id])
 
 ##################################################################
 
@@ -126,6 +107,11 @@ cursor.execute(active_select_Query)
 records = cursor.fetchall()
 
 for row in records:
+
+    ingredient_id = row[0]
+
+    drug_id = row[1]
+
     if row[3] == []:
         name = 'unknown'
     else:
@@ -136,10 +122,10 @@ for row in records:
     dose_denominator = row[6]
     dose_denominator_unit = row[7]
 
-    if row[4] or row[6] == []:
-        dose_fraction = []
+    if float(row[4]) or float(row[6]) == 0:
+        dose_fraction = None
     else:
-        dose_fraction = dose_numerator / dose_denominator
+        dose_fraction = float(dose_numerator) / float(dose_denominator)
     
     if row[5] == []:
         dose_unit = 'unknown'
@@ -147,15 +133,17 @@ for row in records:
         dose_unit = dose_numerator_unit
 
     insert_drug1 = """
-    INSERT INTO dw.drug(  
-        dose_fraction,       
-        dose_unit,           
-        active_ingredient_name  
+    INSERT INTO dw.active_ingredient(  
+        ingredient_id,       
+        drug_id,           
+        active_ingredient_name,
+        dose_fraction,
+        dose_unit  
         )                  
-    VALUES (%s, %s, %s)
+    VALUES (%s, %s, %s, %s, %s)
     """
 
-    cursor.execute(insert_drug1,[dose_fraction,dose_unit, name])
+    cursor.execute(insert_drug1,[ingredient_id, drug_id, dose_fraction,dose_unit, name])
 
 ##################################################################
 
@@ -170,7 +158,7 @@ cursor.execute(drug_select_Query)
 # get all records
 records = cursor.fetchall()
 for row in records:
-    drug_id = row[2]
+    p_record_id = row[0]
 
     if row[3] == []:
         route = 'unknown'
@@ -249,7 +237,7 @@ for row in records:
     """
 
     drugvalues = [\
-        drug_id,
+        p_record_id,
         route, 
         dosage_form,
         used_according_to_label,
@@ -267,16 +255,6 @@ for row in records:
 
     cursor.execute(insert_drug2, drugvalues)
 
-    insert_facts3 = """
-
-        INSERT INTO dw.fact(
-            drug_id
-        )
-        VALUES(%s)
-    """
-
-    cursor.execute(insert_facts3, [drug_id])
-
 ##################################################################
 
 print("============================================================")
@@ -293,8 +271,15 @@ counter = 1
 for row in records:
 
     aer = row[0]
-    original_receive_date = row[2]
-    number_of_animals_affected = row[3]
+    if len(row[2]) > 9:
+        original_receive_date = row[2][1:10]
+    else:
+        original_receive_date = row[2]
+    
+    if row[3] == 'NaN':
+        number_of_animals_affected = None
+    else:
+        number_of_animals_affected = row[3]
 
     if row[4] == []:
         primary_reporter = 'unknown'
@@ -359,7 +344,7 @@ for row in records:
         health_assessment_prior_to_exposure_condition = row[32]
 
 
-    animal_id = 'ANIMALS'+str(counter)
+    p_record_id = row[0]
     counter += 1
 
     insert_animals = """
@@ -379,7 +364,7 @@ for row in records:
     """
 
     cursor.execute(insert_animals,[\
-        animal_id,                            
+        p_record_id,                            
         species, 	                         
         gender, 	                             
         female_animals_physiological_status, 	 
@@ -415,17 +400,6 @@ for row in records:
         time_between_exposure_and_onset,      
         treated_for_ae      
     ])
-
-    insert_facts4 = """
-
-        INSERT INTO dw.fact(
-            animal_id,
-            aer
-            )
-        VALUES(%s,%s)
-    """
-
-    cursor.execute(insert_facts4, [animal_id,aer])
 
 
 ##################################################################
