@@ -5,8 +5,22 @@ connection = psycopg2.connect(host='localhost',
                                         database='vets_dw',
                                         user='postgres',
                                         password='password')
-
 connection.autocommit = True
+
+cursor = connection.cursor()
+
+truncTables = ['dw.reaction',
+                   'dw.animal',
+                   'dw.date',
+                   'dw.fact',
+                   'dw.incident',
+                   'dw.outcome',
+                   'dw.drug',
+                   'dw.active_ingredient']
+
+for table in truncTables:
+         cursor.execute('TRUNCATE TABLE ' + table)
+
 
 ####################################################################
 # Inserting data
@@ -18,7 +32,6 @@ print("============================================================")
 
 #Reaction
 reaction_select_Query = "select * from staging.FdaApiReaction"
-cursor = connection.cursor()
 cursor.execute(reaction_select_Query)
 # get all records
 records = cursor.fetchall()
@@ -115,9 +128,9 @@ for row in records:
     drug_id = row[1]
 
     if row[3] == []:
-        active_ingredient_name = 'unknown'
+        name = 'unknown'
     else:
-        active_ingredient_name = row[3] 
+        name = row[3] 
 
     dose_numerator = row[4]
     dose_numerator_unit = row[5]
@@ -134,7 +147,7 @@ for row in records:
     else:
         dose_unit = dose_numerator_unit
 
-    insert_drug1 = """
+    insert_active_ingredient = """
     INSERT INTO dw.active_ingredient(  
         ingredient_id,       
         drug_id,           
@@ -145,7 +158,7 @@ for row in records:
     VALUES (%s, %s, %s, %s, %s)
     """
 
-    cursor.execute(insert_drug1,[ingredient_id, drug_id, active_ingredient_name, dose_fraction, dose_unit])
+    cursor.execute(insert_active_ingredient,[ingredient_id, drug_id, dose_fraction,dose_unit, name])
 
 ##################################################################
 
