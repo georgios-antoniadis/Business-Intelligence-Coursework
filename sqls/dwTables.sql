@@ -30,11 +30,11 @@ CREATE TABLE dw.animal(
 );
 
 CREATE TABLE dw.active_ingredient(
-    "ingredient_id" VARCHAR(64),
-    "drugID" VARCHAR(8),
-    "name" VARCHAR(256),
-    "dose_fraction" DECIMAL(21,6),
-    "dose_unit" VARCHAR(128)
+    ingredient_id VARCHAR(64),
+    drug_id VARCHAR(8),
+    name VARCHAR(256),
+    dose_fraction DECIMAL(21,6),
+    dose_unit VARCHAR(128)
 );
 
 CREATE TABLE dw.drug(
