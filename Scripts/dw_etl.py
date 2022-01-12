@@ -6,6 +6,8 @@ connection = psycopg2.connect(host='localhost',
                                         user='postgres',
                                         password='password')
 
+connection.autocommit = True
+
 ####################################################################
 # Inserting data
 ####################################################################
@@ -412,3 +414,6 @@ for row in records:
 #         connection.close()
 #         cursor.close()
 #         print("PostgreSQL connection is closed")
+
+connection.close()
+cursor.close()
