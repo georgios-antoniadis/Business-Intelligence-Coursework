@@ -25,7 +25,7 @@ CREATE TABLE dw.animal(
     age_unit 	                        VARCHAR(512),
     "weight_kg"    	                    DECIMAL(21,6),
     is_crossbred 	                    VARCHAR(512),
-    breed_component 	                VARCHAR(512),
+    breed_component 	                VARCHAR(640),
     reproductive_status 	            VARCHAR(512)
 );
 
