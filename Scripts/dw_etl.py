@@ -115,9 +115,9 @@ for row in records:
     drug_id = row[1]
 
     if row[3] == []:
-        name = 'unknown'
+        active_ingredient_name = 'unknown'
     else:
-        name = row[3] 
+        active_ingredient_name = row[3] 
 
     dose_numerator = row[4]
     dose_numerator_unit = row[5]
@@ -145,7 +145,7 @@ for row in records:
     VALUES (%s, %s, %s, %s, %s)
     """
 
-    cursor.execute(insert_drug1,[ingredient_id, drug_id, dose_fraction,dose_unit, name])
+    cursor.execute(insert_drug1,[ingredient_id, drug_id, active_ingredient_name, dose_fraction, dose_unit])
 
 ##################################################################
 
