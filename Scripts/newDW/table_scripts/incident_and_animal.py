@@ -188,10 +188,10 @@ def incident_and_animals(connection):
 
     with open('breed_type.txt', 'a') as f:
             for breed_t in breed_type:
-                component_type_line = counter_animal + breed_t
+                component_type_line = str(counter_animal) + breed_t
                 f.write(component_type_line)
     
     with open('breed_text.txt', 'a') as f:
             for breed in breed_text:
-                component_line = counter_animal + breed
+                component_line = str(counter_animal) + breed
                 f.write(component_line)
