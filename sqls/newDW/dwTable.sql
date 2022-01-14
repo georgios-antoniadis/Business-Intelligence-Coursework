@@ -4,7 +4,7 @@ DROP TABLE if exists dw.animal;
 DROP TABLE if exists dw.incident_details;
 DROP TABLE if exists dw.outcome;
 DROP TABLE if exists dw.drug;
-DROP TABLE if exists dw.active_ingredient_name;
+DROP TABLE if exists dw.active_ingredient;
 DROP TABLE if exists dw.date;
 DROP TABLE if exists dw.incident;
 
