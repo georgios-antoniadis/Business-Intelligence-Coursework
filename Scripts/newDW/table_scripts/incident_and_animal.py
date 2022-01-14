@@ -47,7 +47,7 @@ def incident_and_animals(connection):
 
         #End of resolving issues with inconsistency between the treated and affected
 
-        if row[4] == []:
+        if row[4] == '' or row[4] == 'unknown':
             primary_reporter = 'NaN'
         else:
             primary_reporter = row[4]
@@ -62,14 +62,15 @@ def incident_and_animals(connection):
         else:
             treated_for_ae = row[30]
         
-        if row[32] == []:
+        if row[32] == '':
             health_assessment_prior_to_exposure_condition = 'NaN'
         else:
             health_assessment_prior_to_exposure_condition = row[32]
 
         insert_incident = """INSERT INTO temp.incident(  
             p_record_id,
-            incident_id,                                  
+            incident_id,                         
+            primary_repoter,         
             receive_date,                        
             animals_affected,                     
             animals_treated,                      
@@ -77,12 +78,13 @@ def incident_and_animals(connection):
             onset_date,                                      
             treated_for_ae
             )                     	                                
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
         """ 
 
         cursor.execute(insert_incident,[\
             p_record_id_incident,
-            incident_id,                                  
+            incident_id,                        
+            primary_reporter,          
             original_receive_date,                        
             number_of_animals_affected,                     
             number_of_animals_treated,                      
@@ -108,11 +110,6 @@ def incident_and_animals(connection):
             gender = 'NaN'
         else:
             gender = row[17]
-        
-        if row[18] == [] or row[18] == 'Not applicable' or row[18] == 'NOT APPLICABLE':
-            female_animals_physiological_status = 'NaN'
-        else:
-            female_animals_physiological_status = row[18]
         
         if row[20] == []:
             age_unit = 'NaN'
@@ -161,7 +158,6 @@ def incident_and_animals(connection):
             animal_id,                            
             species, 	                         
             gender, 	                             
-            female_animal_physiological_status, 	 
             age,                                 
             age_unit, 	                         
             "weight_kg",    	                    
@@ -169,7 +165,7 @@ def incident_and_animals(connection):
             breed_component, 	             
             reproductive_status 
             )	                                
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """
 
         cursor.execute(insert_animals,[\
@@ -177,7 +173,6 @@ def incident_and_animals(connection):
             animal_id,                            
             species, 	                         
             gender, 	                             
-            female_animals_physiological_status, 	 
             age,                                 
             age_unit, 	                         
             weight,    	                    
