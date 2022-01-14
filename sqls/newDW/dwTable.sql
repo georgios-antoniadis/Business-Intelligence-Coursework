@@ -11,10 +11,10 @@ DROP TABLE if exists dw.incident;
 
 CREATE TABLE dw.active_ingredient(
     ingredient_id          VARCHAR(128),
-    active_ingredient_name VARCHAR(128),
+    active_ingredient_name VARCHAR(256),
     dose_fraction          NUMERIC,
     dose_unit              VARCHAR(128)
-)
+);
 
 CREATE TABLE dw.reaction(
     reaction_id                 VARCHAR(128),
@@ -28,12 +28,11 @@ CREATE TABLE dw.animal(
     animal_id                           VARCHAR(128),
     species 	                        VARCHAR(128),
     gender 	                            VARCHAR(128),
-    female_animal_physiological_status 	VARCHAR(128),
     age                                 DECIMAL(21,6),
     age_unit 	                        VARCHAR(128),
     "weight_kg"    	                    DECIMAL(21,6),
     is_crossbred 	                    VARCHAR(128),
-    breed_component 	                VARCHAR(128),
+    breed_component 	                VARCHAR(640),
     reproductive_status 	            VARCHAR(128)
 );
 
@@ -57,9 +56,10 @@ CREATE TABLE dw.drug(
     active_ingredient_name              VARCHAR(128)
 );
 
-CREATE TABLE dw.incident_detail(
+CREATE TABLE dw.incident_details(
     incident_id                                     VARCHAR(128),
     date_dim_id                                     VARCHAR(128),
+    primary_reporter                                VARCHAR(128),
     receive_date                                    DATE,
     animals_affected                                NUMERIC,
     animals_treated                                 NUMERIC,
