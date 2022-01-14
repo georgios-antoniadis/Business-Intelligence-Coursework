@@ -20,7 +20,7 @@ def connect():
     for table in truncTables:
             cursor.execute('TRUNCATE TABLE ' + table)
     
-    return cursor
+    return cursor, connection
 
 ####################################################################
 # Inserting data
@@ -480,7 +480,7 @@ def incident_and_animals(cursor):
 #         print("PostgreSQL connection is closed")
 
 if __name__ == '__main__':
-    cursor = connect()
+    cursor, connection = connect()
     reactions(cursor)
     outcomes(cursor)
     active_ingredients(cursor)
