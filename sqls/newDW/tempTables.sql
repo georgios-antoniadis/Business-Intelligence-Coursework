@@ -1,4 +1,4 @@
---CREATE Schema IF NOT EXISTS temp;
+CREATE Schema IF NOT EXISTS temp;
 DROP TABLE if exists temp.reaction;
 DROP TABLE if exists temp.animal;
 DROP TABLE if exists temp.incident;
