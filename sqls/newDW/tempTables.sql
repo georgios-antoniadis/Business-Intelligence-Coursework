@@ -9,10 +9,10 @@ DROP TABLE if exists temp.active_ingredient;
 CREATE TABLE temp.active_ingredient(
     p_record_id            VARCHAR(128),
     ingredient_id          VARCHAR(128),
-    active_ingredient_name VARCHAR(128),
+    active_ingredient_name VARCHAR(256),
     dose_fraction          NUMERIC,
     dose_unit              VARCHAR(128)
-)
+);
 
 CREATE TABLE temp.reaction(
     p_record_id                 VARCHAR(128),
@@ -28,12 +28,11 @@ CREATE TABLE temp.animal(
     animal_id                           VARCHAR(128),
     species 	                        VARCHAR(128),
     gender 	                            VARCHAR(128),
-    female_animal_physiological_status 	VARCHAR(128),
     age                                 DECIMAL(21,6),
     age_unit 	                        VARCHAR(128),
     "weight_kg"    	                    DECIMAL(21,6),
     is_crossbred 	                    VARCHAR(128),
-    breed_component 	                VARCHAR(128),
+    breed_component 	                VARCHAR(640),
     reproductive_status 	            VARCHAR(128)
 );
 
@@ -61,6 +60,7 @@ CREATE TABLE temp.drug(
 CREATE TABLE temp.incident(
     p_record_id                                     VARCHAR(128),
     incident_id                                     VARCHAR(128),
+    primary_reporter                                VARCHAR(128),
     receive_date                                    DATE,
     animals_affected                                NUMERIC,
     animals_treated                                 NUMERIC,
