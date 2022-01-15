@@ -31,7 +31,7 @@ def reactions(cursor):
         else:
             ved_term_name = row[4]
 
-        if row[5] == '' or row[5] == 'NaN' or row[5] == 'Unknonw':
+        if row[5] == '' or row[5] == 'NaN' or row[5] == 'Unknown':
             animals_affected = None
         else:
             animals_affected = row[5]

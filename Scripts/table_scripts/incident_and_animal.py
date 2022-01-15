@@ -120,7 +120,7 @@ def incident_and_animals(cursor):
         else:
             age = row[19]
 
-        if row[22] == 'NaN':
+        if row[22] == 'NaN' or row[22] == '':
             weight = None
         else:
             weight = row[22]
