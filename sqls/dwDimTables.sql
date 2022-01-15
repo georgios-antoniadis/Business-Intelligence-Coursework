@@ -1,16 +1,19 @@
-DROP TABLE IS EXISTS dw.Dim_Animal
-DROP TABLE IS EXISTS dw.Dim_Reaction
-DROP TABLE IS EXISTS dw.Dim_Outcome
-DROP TABLE IS EXISTS dw.Dim_Drug
-DROP TABLE IS EXISTS dw.Dim_Active_Ingredient
-DROP TABLE IS EXISTS dw.Dim_Date
-DROP TABLE IS EXISTS dw.Fact_Incident
+CREATE Schema IF NOT EXISTS dw;
 
+--DROP TABLE IF EXISTS dw.Dim_Animal;
+DROP TABLE IF EXISTS dw.Dim_Reaction;
+DROP TABLE IF EXISTS dw.Dim_Outcome;
+DROP TABLE IF EXISTS dw.Dim_Drug;
+DROP TABLE IF EXISTS dw.Dim_Active_Ingredient;
+DROP TABLE IF EXISTS dw.Dim_Date;
+DROP TABLE IF EXISTS dw.Fact_Incident;
 
+/*
 CREATE TABLE dw.Dim_Animal(
     Animal_id   VARCHAR(128),
     Animal_name VARCHAR --What is that?
 );
+ */
 
 CREATE TABLE dw.Dim_Reaction(
     Reaction_id                 VARCHAR(128),
@@ -52,7 +55,7 @@ CREATE TABLE dw.Dim_Active_Ingredient(
 
 );  
 
-CREATE TABLE dw.date(
+CREATE TABLE dw.Dim_date(
     date_dim_id              INT NOT NULL,
     date_actual              DATE NOT NULL,
     epoch                    BIGINT NOT NULL,
@@ -87,7 +90,7 @@ CREATE TABLE dw.date(
 );
 
 
-CREATE TABLE Fact_Incident(
+CREATE TABLE dw.Fact_Incident(
     Incident_id                                     VARCHAR(128),
     Animal_id                                       VARCHAR(128),
     Reaction_id                                     VARCHAR(128),

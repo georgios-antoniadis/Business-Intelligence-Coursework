@@ -1,6 +1,6 @@
 --CREATE Schema IF NOT EXISTS staging;
-DROP TABLE if exists staging.date;
-
+--DROP TABLE if exists dw.Dim_date;
+/*
 CREATE TABLE dw.date
 (
   date_dim_id              INT NOT NULL,
@@ -35,15 +35,16 @@ CREATE TABLE dw.date
   mmddyyyy                 CHAR(10) NOT NULL,
   weekend_indr             BOOLEAN NOT NULL
 );
+*/
 
-ALTER TABLE dw.date ADD CONSTRAINT d_date_date_dim_id_pk PRIMARY KEY (date_dim_id);
+ALTER TABLE dw.dim_date ADD CONSTRAINT d_date_date_dim_id_pk PRIMARY KEY (date_dim_id);
 
 CREATE INDEX d_date_date_actual_idx
-  ON dw.date(date_actual);
+  ON dw.dim_date(date_actual);
 
 COMMIT;
 
-INSERT INTO dw.date
+INSERT INTO dw.dim_date
 SELECT TO_CHAR(datum,'yyyymmdd')::INT AS date_dim_id,
        datum AS date_actual,
        EXTRACT(epoch FROM datum) AS epoch,
