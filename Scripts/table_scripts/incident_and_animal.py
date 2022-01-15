@@ -1,4 +1,4 @@
-def incident_and_animals(connection):
+def incident_and_animals(cursor):
 
     breed_text = []
     breed_type = []
@@ -9,7 +9,6 @@ def incident_and_animals(connection):
 
     #FdaApiIncident
     incident_select_Query = "select * from staging.FdaApiIncident"
-    cursor = connection.cursor()
     cursor.execute(incident_select_Query)
     # get all records
     records = cursor.fetchall()
@@ -101,22 +100,22 @@ def incident_and_animals(connection):
         animal_id = 'ANIMAL'+str(counter_animal)
         counter_animal += 1
 
-        if row[16] == []:
+        if row[16] == [] or row[16] == '' or row[16] == 'Unknown' or row[16] == 'unknown':
             species = 'NaN'
         else:
             species = row[16]
         
-        if row[17] == []:
+        if row[17] == [] or row[17] == '' or row[17] == 'Unknown' or row[17] == 'unknown':
             gender = 'NaN'
         else:
             gender = row[17]
         
-        if row[20] == []:
+        if row[20] == [] or row[20] == '' or row[20] == 'Unknown' or row[20] == 'unknown':
             age_unit = 'NaN'
         else:
             age_unit = row[20]
 
-        if row[19] == 'NaN':
+        if row[19] == 'NaN' or row[19] == '':
             age = None
         else:
             age = row[19]

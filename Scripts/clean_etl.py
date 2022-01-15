@@ -2,7 +2,7 @@ from table_scripts.drug import drugs
 from table_scripts.incident_and_animal import incident_and_animals
 from table_scripts.active import active_ingredients
 from table_scripts.outcome import outcomes
-from table_scripts.reaction import reactions
+from table_scripts.reaction import reactions 
 
 import psycopg2
 
