@@ -34,6 +34,6 @@ if __name__ == '__main__':
     # outcomes(cursor)
     # active_ingredients(cursor)
     # drugs(cursor)
-    incident_and_animals(connection) #Currently unknown cause of error that kills the process
+    incident_and_animals(cursor) #Currently unknown cause of error that kills the process
     connection.close()
     cursor.close()
