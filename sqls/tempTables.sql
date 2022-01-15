@@ -10,8 +10,6 @@ CREATE TABLE temp.active_ingredient(
     p_record_id            VARCHAR(128),
     ingredient_id          VARCHAR(128),
     active_ingredient_name VARCHAR(256),
-    dose_fraction          NUMERIC,
-    dose_unit              VARCHAR(128)
 );
 
 CREATE TABLE temp.reaction(
@@ -50,8 +48,6 @@ CREATE TABLE temp.drug(
     previous_ae_to_drug                 BOOLEAN,
     frequency_of_administration_value   VARCHAR(128),
     frequency_of_administration_unit    VARCHAR(128),
-    dose_fraction                       NUMERIC,
-    dose_unit                           VARCHAR(128),
     ae_abated_after_stopping_drug       VARCHAR(128),
     ae_reappeared_after_resuming_drug   VARCHAR(128),
     active_ingredient_name              VARCHAR(128)

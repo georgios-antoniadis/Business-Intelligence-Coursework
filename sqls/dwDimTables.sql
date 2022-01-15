@@ -41,8 +41,6 @@ CREATE TABLE dw.Dim_Drug(
     Previous_ae_to_drug                 BOOLEAN,
     Frequency_of_administration_value   VARCHAR(128),
     Frequency_of_administration_unit    VARCHAR(128),
-    Dose_fraction                       NUMERIC,
-    Dose_unit                           VARCHAR(128),
     Ae_abated_after_stopping_drug       VARCHAR(128),
     Ae_reappeared_after_resuming_drug   VARCHAR(128),
     Active_ingredient_id                VARCHAR(128)
@@ -105,7 +103,7 @@ CREATE TABLE dw.Fact_Incident(
     Animal_gender                                   VARCHAR(128),
     Animal_age                                      VARCHAR(128),
     Animal_weight                                   VARCHAR(128),
-    Animal_is_crossbred                             VARCHAR(128),
+    Animal_is_crossbred                             BOOLEAN,
     Animal_breed_component                          VARCHAR(640),
     Animal_reproductive_status                      VARCHAR(128),
     Treated_for_ae                                  BOOLEAN,
