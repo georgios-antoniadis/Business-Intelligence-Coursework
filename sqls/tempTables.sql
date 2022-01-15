@@ -69,6 +69,6 @@ CREATE TABLE temp.outcome(
     p_record_id                         VARCHAR(128),
     outcome_id                          VARCHAR(128),
     outcome_medical_status              VARCHAR(128),
-    outcome_number_of_animals_affected  VARCHAR(128)
+    outcome_number_of_animals_affected  NUMERIC
 );
 
