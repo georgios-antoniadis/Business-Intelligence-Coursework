@@ -30,10 +30,10 @@ def connect():
 
 if __name__ == '__main__':
     cursor, connection = connect()
-    # reactions(cursor)
-    # outcomes(cursor)
-    # active_ingredients(cursor)
-    # drugs(cursor)
-    incident_and_animals(cursor) #Currently unknown cause of error that kills the process
+    reactions(cursor)
+    outcomes(cursor)
+    active_ingredients(cursor)
+    drugs(cursor)
+    incident_and_animals(cursor) 
     connection.close()
     cursor.close()

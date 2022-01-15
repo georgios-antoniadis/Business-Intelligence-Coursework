@@ -31,7 +31,10 @@ def reactions(cursor):
         else:
             ved_term_name = row[4]
 
-        animals_affected = row[5]
+        if row[5] == '' or row[5] == 'NaN' or row[5] == 'Unknonw':
+            animals_affected = None
+        else:
+            animals_affected = row[5]
 
         insert_reaction = """
         INSERT INTO temp.reaction(

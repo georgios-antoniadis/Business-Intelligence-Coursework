@@ -21,32 +21,32 @@ def drugs(cursor):
         else:
             route = row[3]
 
-        if row[10] == []:
+        if row[10] == [] or row[10] == '' or row[10] == 'Unknown':
             off_label_use = 'NaN'
         else:
             off_label_use = row[10]
 
-        if row[14] == []:
+        if row[14] == [] or row[14] == '' or row[14] == 'Unknown':
             administered_by = 'NaN'
         else:
             administered_by = row[14]
 
-        if row[18] == []:
+        if row[18] == [] or row[18] == '' or row[18] == 'Unknown':
             frequency_of_administration_value = 'NaN'
         else:
             frequency_of_administration_value = row[18]  
 
-        if row[19] == []:
+        if row[19] == [] or row[19] == '' or row[19] == 'Unknown':
             frequency_of_administration_unit = 'NaN'
         else:
             frequency_of_administration_unit = row[19]
 
-        if row[24] == []:
+        if row[24] == [] or row[24] == '' or row[24] == 'Unknown':
             ae_abated_after_stopping_drug = 'NaN'
         else:
             ae_abated_after_stopping_drug = row[24]
 
-        if row[25] == []:
+        if row[25] == [] or row[25] == '' or row[25] == 'Unknown':
             ae_reappeared_after_resuming_drug = 'NaN'
         else:
             ae_reappeared_after_resuming_drug = row[25]  

@@ -69,7 +69,7 @@ def incident_and_animals(cursor):
         insert_incident = """INSERT INTO temp.incident(  
             p_record_id,
             incident_id,                         
-            primary_repoter,         
+            primary_reporter,         
             receive_date,                        
             animals_affected,                     
             animals_treated,                      
