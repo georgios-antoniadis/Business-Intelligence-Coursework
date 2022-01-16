@@ -17,10 +17,15 @@ CREATE TABLE dw.Dim_Animal(
 
 CREATE TABLE dw.Dim_Reaction(
     Reaction_id                 VARCHAR(128),
-    Number_of_animals_affected  VARCHAR(128),
     Veddra_version              VARCHAR(128),
     Veddra_term_code            VARCHAR(128),
     Veddra_term_name            VARCHAR(128)
+);
+
+CREATE TABLE dw.Dim_Reaction(
+    Aer                         VARCHAR(128),
+    Reaction_id                 VARCHAR(128),
+    Number_of_animals_affected  NUMERIC
 );
 
 CREATE TABLE dw.Dim_Outcome(
@@ -47,7 +52,6 @@ CREATE TABLE dw.Dim_Drug(
 );
 
 CREATE TABLE dw.Dim_Active_Ingredient(
-
     Active_ingredient_id    VARCHAR(128),
     Active_ingredient_name  VARCHAR(128)
 
@@ -89,25 +93,26 @@ CREATE TABLE dw.Dim_date(
 
 
 CREATE TABLE dw.Fact_Incident(
-    Incident_id                                     VARCHAR(128),
-    Animal_id                                       VARCHAR(128),
+    Aer                                             VARCHAR(128),    
+    -- Incident_id                                     VARCHAR(128),
+    -- Animal_id                                       VARCHAR(128),
     Reaction_id                                     VARCHAR(128),
     Outcome_id                                      VARCHAR(128),
     Active_ingredient_id                            VARCHAR(128),
     Drug_id                                         VARCHAR(128),
-    Original_receive_date                           VARCHAR(128),
-    Number_of_animals_affected                      VARCHAR(128),
-    number_of_animals_treated                       VARCHAR(128),
-    onset_date                                      DATE,
+    Original_receive_date                           DATE,
+    Number_of_animals_affected                      NUMERIC,
+    Mumber_of_animals_treated                       NUMERIC,
+    Onset_date                                      DATE,
     Animal_species                                  VARCHAR(128),
     Animal_gender                                   VARCHAR(128),
-    Animal_age                                      VARCHAR(128),
-    Animal_weight                                   VARCHAR(128),
+    Animal_age                                      NUMERIC,
+    Animal_weight                                   NUMERIC,
     Animal_is_crossbred                             BOOLEAN,
     Animal_breed_component                          VARCHAR(640),
     Animal_reproductive_status                      VARCHAR(128),
     Treated_for_ae                                  BOOLEAN,
-    Time_between_exposure_and_onset                 VARCHAR(128),
+    -- Time_between_exposure_and_onset                 VARCHAR(128),
     Health_assessment_prior_to_exposure_condition   VARCHAR(128),
     Serious_ae                                      VARCHAR(128)
 

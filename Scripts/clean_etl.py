@@ -30,8 +30,8 @@ def connect():
 
 if __name__ == '__main__':
     cursor, connection = connect()
-    reactions(cursor)
-    outcomes(cursor)
+    # reactions(cursor)
+    # outcomes(cursor)
     active_ingredients(cursor)
     drugs(cursor)
     incident_and_animals(cursor) 

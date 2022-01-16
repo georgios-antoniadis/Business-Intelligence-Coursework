@@ -25,7 +25,7 @@ def active_ingredients(cursor):
         INSERT INTO temp.active_ingredient(  
             p_record_id,       
             ingredient_id,           
-            active_ingredient_name,
+            active_ingredient_name
             )                  
         VALUES (%s, %s, %s)
         """
