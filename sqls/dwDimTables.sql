@@ -22,7 +22,7 @@ CREATE TABLE dw.Dim_Reaction(
     Veddra_term_name            VARCHAR(128)
 );
 
-CREATE TABLE dw.Dim_Reaction(
+CREATE TABLE dw.Fact_Reaction(
     Aer                         VARCHAR(128),
     Reaction_id                 VARCHAR(128),
     Number_of_animals_affected  NUMERIC
@@ -47,14 +47,12 @@ CREATE TABLE dw.Dim_Drug(
     Frequency_of_administration_value   VARCHAR(128),
     Frequency_of_administration_unit    VARCHAR(128),
     Ae_abated_after_stopping_drug       VARCHAR(128),
-    Ae_reappeared_after_resuming_drug   VARCHAR(128),
-    Active_ingredient_id                VARCHAR(128)
+    Ae_reappeared_after_resuming_drug   VARCHAR(128)
 );
 
 CREATE TABLE dw.Dim_Active_Ingredient(
     Active_ingredient_id    VARCHAR(128),
     Active_ingredient_name  VARCHAR(128)
-
 );  
 
 CREATE TABLE dw.Dim_date(

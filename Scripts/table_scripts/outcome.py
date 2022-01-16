@@ -24,7 +24,7 @@ def outcomes(cursor):
         if row[3] == 'NaN' or row[3] == '':
             outcome_number_of_animals_affected = 0
         else:
-            outcome_number_of_animals_affected = row[3]
+            outcome_number_of_animals_affected = float(row[3]) #Making sure that it is numeric type
 
         insert_outcome = """
         INSERT INTO temp.outcome(

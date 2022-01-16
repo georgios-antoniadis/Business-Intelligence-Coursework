@@ -49,8 +49,7 @@ CREATE TABLE temp.drug(
     frequency_of_administration_value   VARCHAR(128),
     frequency_of_administration_unit    VARCHAR(128),
     ae_abated_after_stopping_drug       VARCHAR(128),
-    ae_reappeared_after_resuming_drug   VARCHAR(128),
-    active_ingredient_name              VARCHAR(128)
+    ae_reappeared_after_resuming_drug   VARCHAR(128)
 );
 
 CREATE TABLE temp.incident(
@@ -62,7 +61,8 @@ CREATE TABLE temp.incident(
     animals_treated                                 NUMERIC,
     health_assessment_prior_to_exposure_condition   VARCHAR(128),
     onset_date                                      VARCHAR(128),
-    treated_for_ae                                  BOOLEAN
+    treated_for_ae                                  BOOLEAN,
+    time_between_exposure_and_onset                 VARCHAR(1024)
 );
 
 CREATE TABLE temp.outcome(

@@ -56,15 +56,20 @@ def incident_and_animals(cursor):
         else:
             onset_date = row[6]
 
-        if row[30] == 'NaN':
+        if row[29] == 'NaN':
             treated_for_ae = None
         else:
-            treated_for_ae = row[30]
+            treated_for_ae = row[29]
         
-        if row[32] == '':
+        if row[15] == '':
             health_assessment_prior_to_exposure_condition = 'NaN'
         else:
-            health_assessment_prior_to_exposure_condition = row[32]
+            health_assessment_prior_to_exposure_condition = row[15]
+
+        if row[30] == '' or row[30] == 'unknown' or row[30] == 'Unknown':
+            time_between_exposure_and_onset = 'NaN'
+        else:
+            time_between_exposure_and_onset = row[30]
 
         insert_incident = """INSERT INTO temp.incident(  
             p_record_id,
@@ -75,9 +80,10 @@ def incident_and_animals(cursor):
             animals_treated,                      
             health_assessment_prior_to_exposure_condition,
             onset_date,                                      
-            treated_for_ae
+            treated_for_ae,
+            time_between_exposure_and_onset
             )                     	                                
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """ 
 
         cursor.execute(insert_incident,[\
@@ -89,7 +95,8 @@ def incident_and_animals(cursor):
             number_of_animals_treated,                      
             health_assessment_prior_to_exposure_condition,  
             onset_date,                                       
-            treated_for_ae      
+            treated_for_ae,
+            time_between_exposure_and_onset
         ])
 
         ################################################################

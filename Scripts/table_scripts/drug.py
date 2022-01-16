@@ -16,7 +16,7 @@ def drugs(cursor):
         drug_id = 'DRUG'+str(counter)
         counter +=1 
 
-        if row[3] == [] or row[3] == 'Unknown' or row[3] == 'unknown':
+        if row[3] == [] or row[3] == '' or row[3] == 'Unknown' or row[3] == 'unknown':
             route = 'NaN'
         else:
             route = row[3]
