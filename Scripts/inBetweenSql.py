@@ -15,6 +15,18 @@ def connect():
 
     cursor = connection.cursor()
     
+#     truncTables = ['dw.Dim_Animal',
+#                     'dw.Dim_Drug',
+#                     'dw.Dim_Outcome',
+#                     'dw.Dim_Reaction',
+#                     'dw.Fact_Animal',
+#                     'dw.Fact_Incident',
+#                     'dw.Fact_Drug',
+#                     'dw.Dim_Date']
+
+#     for table in truncTables:
+#             cursor.execute('TRUNCATE TABLE ' + table)
+    
     print("Connected to database!")
     print("")
     return cursor, connection
