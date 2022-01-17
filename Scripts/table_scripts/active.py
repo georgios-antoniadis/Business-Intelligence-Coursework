@@ -16,7 +16,7 @@ def active_ingredients(cursor):
         ingredient_id = 'INGREDIENT'+str(counter)
         counter += 1
 
-        if row[3] == []:
+        if row[3] == [] or row[3] == 'unknown' or row[3] == 'Unknown':
             active_ingredient_name = 'NaN'
         else:
             active_ingredient_name = row[3] 

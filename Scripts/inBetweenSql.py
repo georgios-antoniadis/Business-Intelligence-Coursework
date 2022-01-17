@@ -36,6 +36,10 @@ def dim_Animal(cursor):
     cursor.execute(dim_animal_sql)
 
 def fact_Animal(cursor):
+
+    print("Creating fact table animal")
+    print("")
+
     fact_animal_sql = """
     INSERT INTO dw.Fact_Animal
     ("aer", 
@@ -62,6 +66,10 @@ def fact_Animal(cursor):
     cursor.execute(fact_animal_sql)
 
 def dim_Outcome(cursor):
+
+    print("Creating dimesnion table outcome")
+    print("")
+
     dim_outcome_sql = """
     INSERT INTO dw.Dim_Outcome
     ("outcome_id", "outcome_medical_status")
@@ -73,6 +81,10 @@ def dim_Outcome(cursor):
     cursor.execute(dim_outcome_sql)
 
 def dim_Reaction(cursor):
+
+    print("Creating dimesnion table reaction")
+    print("")
+
     dim_reaction_sql = """
     INSERT INTO dw.Dim_Reaction
     ("reaction_id", "veddra_version", "veddra_term_code", "veddra_term_name")
@@ -85,6 +97,10 @@ def dim_Reaction(cursor):
 
 
 def fact_Incident(cursor):
+
+    print("Creating fact table incident")
+    print("")
+
     fact_incident_sql = """
     INSERT INTO dw.Fact_Incident
     (
@@ -124,7 +140,7 @@ def fact_Incident(cursor):
             result[7], #onset date
             result[3], #receive_date
             result[8], #treated_for_ae
-            None, # time_between_exposure_and_onset, 
+            result[9], # time_between_exposure_and_onset, 
             result[6], # health_assessment_prior_to_exposure_condition
             None, # serious_ae
             None, # outcome_animals_affected
@@ -137,8 +153,7 @@ def fact_Incident(cursor):
     update_drug = """
     UPDATE dw.Fact_Incident
     SET
-    drug_id = AI.active_ingredient_name,
-    time_between_exposure_and_onset = AI.time_between_exposure_and_onset
+    drug_id = AI.active_ingredient_name
     FROM
     temp.active_ingredient AI
     WHERE
@@ -178,6 +193,10 @@ def fact_Incident(cursor):
 
 
 def fact_Drug(cursor):
+
+    print("Creating fact table drug")
+    print("")
+
     fact_drug_sql = """
     INSERT INTO dw.Fact_Drug
     (
@@ -200,7 +219,7 @@ def fact_Drug(cursor):
     
     SELECT 
     p_record_id,
-    active_ingredient_name, 
+    drug_id, 
     "route", 
     dosage_form, 
     used_according_to_label, 
@@ -232,6 +251,10 @@ def fact_Drug(cursor):
     cursor.execute(update_name_sql)
 
 def dim_Drug(cursor):
+
+    print("Creating dimesnion table drug")
+    print("")
+
     dim_reaction_sql = """
     INSERT INTO dw.Dim_Drug
     ("drug_id", "active_ingredient_name")
@@ -266,6 +289,10 @@ def dim_Drug(cursor):
 #############################################################################
 
 def update_fact_animal(cursor):
+
+    print("Updating fact table animal")
+    print("")
+
     update_fact_animal_sql = """
     UPDATE dw.Fact_Animal
     SET
@@ -279,6 +306,10 @@ def update_fact_animal(cursor):
     cursor.execute(update_fact_animal_sql)
 
 def update_fact_drug(cursor):
+
+    print("Updating fact table drug")
+    print("")
+
     update_fact_drug_sql = """
     UPDATE dw.Fact_Drug
     SET
@@ -293,6 +324,10 @@ def update_fact_drug(cursor):
 
 
 def update_fact_incident(cursor):
+
+    print("Updating fact table incident")
+    print("")
+
     update_fact_incident_drug = """
     UPDATE dw.Fact_Incident
     SET
