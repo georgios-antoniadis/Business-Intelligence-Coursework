@@ -28,8 +28,8 @@ CREATE TABLE temp.animal(
     gender 	                            VARCHAR(128),
     age                                 DECIMAL(21,6),
     age_unit 	                        VARCHAR(128),
-    "weight_kg"    	                    DECIMAL(21,6),
-    is_crossbred 	                    BOOLEAN,
+    weight_kg    	                    DECIMAL(21,6),
+    is_crossbred 	                    VARCHAR(128),
     breed_component 	                VARCHAR(640),
     reproductive_status 	            VARCHAR(128)
 );
@@ -41,8 +41,8 @@ CREATE TABLE temp.drug(
     dosage_form                         VARCHAR(128),
     used_according_to_label             BOOLEAN,
     off_label_use                       VARCHAR(128),
-    first_exposure_date                 DATE,
-    last_exposure_date                  DATE,
+    first_exposure_date                 VARCHAR(128),
+    last_exposure_date                  VARCHAR(128),
     administered_by                     VARCHAR(128),
     previous_exposure_to_drug           BOOLEAN,
     previous_ae_to_drug                 BOOLEAN,
