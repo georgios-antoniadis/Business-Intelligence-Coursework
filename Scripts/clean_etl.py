@@ -16,15 +16,15 @@ def connect():
 
     cursor = connection.cursor()
 
-    # truncTables = ['temp.reaction',
-    #                 'temp.animal',
-    #                 'temp.incident',
-    #                 'temp.outcome',
-    #                 'temp.drug',
-    #                 'temp.active_ingredient']
+    truncTables = ['temp.reaction',
+                    'temp.animal',
+                    'temp.incident',
+                    'temp.outcome',
+                    'temp.drug',
+                    'temp.active_ingredient']
 
-    # for table in truncTables:
-    #         cursor.execute('TRUNCATE TABLE ' + table)
+    for table in truncTables:
+            cursor.execute('TRUNCATE TABLE ' + table)
     
     return cursor, connection
 
