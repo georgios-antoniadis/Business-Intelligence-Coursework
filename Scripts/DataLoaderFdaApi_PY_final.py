@@ -40,9 +40,20 @@ links_df.reset_index(drop=True, inplace=True)
 #links_df=links_df[:][0:20].reset_index()
 #links_df=links_df[:][20:40].reset_index()
 #links_df=links_df[:][40:60].reset_index() #CHECK THE PERIODS FROM 1997Q1 TO 1998Q4
-#links_df=links_df[:][60:80].reset_index() # LAST RUN 
-
-
+#links_df=links_df[:][60:80].reset_index()
+#links_df=links_df[:][80:100].reset_index()
+#links_df=links_df[:][100:110].reset_index() #ERROR ON 108TH (LARGE VALUE) RERUN 108 - 109
+#links_df=links_df[:][108:110].reset_index()
+#links_df=links_df[:][110:111].reset_index()
+#links_df=links_df[:][111:112].reset_index()
+#links_df=links_df[:][112:114].reset_index()
+#links_df=links_df[:][114:120].reset_index()
+#links_df=links_df[:][120:124].reset_index()
+#links_df=links_df[:][124:128].reset_index()
+#links_df=links_df[:][128:132].reset_index()
+#------------>>links_df=links_df[:][132:136].reset_index() THIS IS THE LAST RUN
+#links_df=links_df[:][136:139].reset_index()
+#links_df=links_df[:][0:5].reset_index()
 
 
 #links_df=links_df[:][128:129].reset_index()
@@ -180,16 +191,21 @@ for linksIndex, LinksRow in links_df.iterrows():
 
         if type(incident_df_temp.loc[index, 'drug']) != float:
             drug_df_temp = pd.json_normalize(incident_df_temp.loc[index,'drug'])
-            drug_df_temp['p_recordID'] = unique_aer_id_number
-            drug_df_temp['Period'] = periodValue
-            drug_df_temp['drugID'] = 'DRUG'+(drug_df_temp.groupby('p_recordID').cumcount().add(1)).astype(str).str.zfill(3)
-            drug_df = drug_df.append(drug_df_temp.loc[:, drug_df_temp.columns!='active_ingredients'])
+            
+            
+            for drIndex, drRow in drug_df_temp.iterrows():
+                
+                drug_df_temp.loc[drIndex,'p_recordID'] = unique_aer_id_number
+                drug_df_temp.loc[drIndex,'Period']= periodValue
+                drug_df_temp.loc[drIndex,'drugID'] = 'DRUG' + str(drIndex+1).zfill(3)
+ 
+                drug_df = drug_df.append(drug_df_temp.loc[drIndex, drug_df_temp.columns!='active_ingredients'])
 
-            active_ingredient_df_temp = pd.json_normalize(incident_df_temp.loc[index,'drug'],record_path=['active_ingredients'])
-            active_ingredient_df_temp['p_recordID'] = unique_aer_id_number
-            active_ingredient_df_temp['Period'] = periodValue
-            active_ingredient_df_temp['drugID'] = 'DRUG'+(active_ingredient_df_temp.groupby('p_recordID').cumcount().add(1)).astype(str).str.zfill(3)
-            active_ingredient_df = active_ingredient_df.append(active_ingredient_df_temp)
+                active_ingredient_df_temp = pd.json_normalize(incident_df_temp.loc[index,'drug'][drIndex],record_path=['active_ingredients'])
+                active_ingredient_df_temp['p_recordID'] = unique_aer_id_number
+                active_ingredient_df_temp['Period'] = periodValue
+                active_ingredient_df_temp['drugID'] = 'DRUG' + str(drIndex+1).zfill(3)
+                active_ingredient_df = active_ingredient_df.append(active_ingredient_df_temp)
         
     #this is already normalized and can be appended to the dataframe without looping
     #actually this operation is much faster that loading one line per iteration
