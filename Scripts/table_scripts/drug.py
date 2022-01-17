@@ -32,9 +32,9 @@ def drugs(cursor):
             administered_by = row[14]
 
         if row[18] == [] or row[18] == '' or row[18] == 'Unknown':
-            frequency_of_administration_value = 'NaN'
+            frequency_of_administration_value = None
         else:
-            frequency_of_administration_value = row[18]  
+            frequency_of_administration_value = float(row[18])  
 
         if row[19] == [] or row[19] == '' or row[19] == 'Unknown':
             frequency_of_administration_unit = 'NaN'

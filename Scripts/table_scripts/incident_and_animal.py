@@ -22,7 +22,9 @@ def incident_and_animals(cursor):
         incident_id = 'INCIDENT'+str(counter_incident)
         counter_incident += 1
 
-        if len(row[2]) > 9:
+        if row[2] == 'NaN' or row[2] == 'unknown' or row[2] == 'Unknown':
+            original_receive_date = None
+        elif len(row[2]) > 9:
             original_receive_date = row[2][1:10]
         else:
             original_receive_date = row[2]
@@ -30,12 +32,12 @@ def incident_and_animals(cursor):
         if row[3] == 'NaN' or row[3] == '':
             number_of_animals_affected = 0
         else:
-            number_of_animals_affected = row[3]
+            number_of_animals_affected = float(row[3])
         
         if row[5] == 'NaN' or row[5] == '':
             number_of_animals_treated = 0
         else:
-            number_of_animals_treated = row[5]
+            number_of_animals_treated = float(row[5])
 
         #Resolving issues with inconsistency between the treated and affected
         if number_of_animals_affected == 0:
@@ -56,20 +58,20 @@ def incident_and_animals(cursor):
         else:
             onset_date = row[6]
 
-        if row[29] == 'NaN':
+        if row[30] == 'NaN':
             treated_for_ae = None
         else:
-            treated_for_ae = row[29]
+            treated_for_ae = row[30]
         
         if row[15] == '':
             health_assessment_prior_to_exposure_condition = 'NaN'
         else:
             health_assessment_prior_to_exposure_condition = row[15]
 
-        if row[30] == '' or row[30] == 'unknown' or row[30] == 'Unknown':
+        if row[31] == '' or row[31] == 'unknown' or row[31] == 'Unknown':
             time_between_exposure_and_onset = 'NaN'
         else:
-            time_between_exposure_and_onset = row[30]
+            time_between_exposure_and_onset = row[31]
 
         insert_incident = """INSERT INTO temp.incident(  
             p_record_id,
@@ -142,17 +144,6 @@ def incident_and_animals(cursor):
         else:
             breed_component = row[26]
 
-        #Dealing with the very weird column of breed component
-        if int(number_of_animals_affected) > 1:
-            breed_text.append(breed_component)
-            breed_type.append(type(breed_component))
-            # print(type(breed_component))
-            # print(breed_component)
-            # number_of_components = len(breed_component)
-            # if number_of_components > 1:
-            #     for i in range(number_of_components):
-            #         print(breed_component[i])
-
         if row[29] == []:
             reproductive_status = 'NaN'
         else:
@@ -184,15 +175,26 @@ def incident_and_animals(cursor):
             weight,    	                    
             is_crossbred, 	                 
             breed_component, 	             
-            reproductive_status, 
+            reproductive_status 
         ])
-
-    with open('breed_type.txt', 'a') as f:
-            for breed_t in breed_type:
-                component_type_line = str(counter_animal) + breed_t
-                f.write(component_type_line)
+###############################################################
+# Testing with breed component
+#         #Dealing with the very weird column of breed component
+#         if int(number_of_animals_affected) > 1:
+#             breed_text.append(breed_component)
+#             breed_type.append(type(breed_component))
+#             # print(type(breed_component))
+#             # print(breed_component)
+#             # number_of_components = len(breed_component)
+#             # if number_of_components > 1:
+#             #     for i in range(number_of_components):
+#             #         print(breed_component[i])
+#     with open('breed_type.txt', 'a') as f:
+#             for breed_t in breed_type:
+#                 component_type_line = str(counter_animal) + breed_t
+#                 f.write(component_type_line)
     
-    with open('breed_text.txt', 'a') as f:
-            for breed in breed_text:
-                component_line = str(counter_animal) + breed
-                f.write(component_line)
+#     with open('breed_text.txt', 'a') as f:
+#             for breed in breed_text:
+#                 component_line = str(counter_animal) + breed
+#                 f.write(component_line)

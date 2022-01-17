@@ -34,7 +34,7 @@ def reactions(cursor):
         if row[5] == '' or row[5] == 'NaN' or row[5] == 'Unknown':
             animals_affected = 0
         else:
-            animals_affected = row[5]
+            animals_affected = float(row[5])
 
         insert_reaction = """
         INSERT INTO temp.reaction(
