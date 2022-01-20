@@ -9,7 +9,6 @@ connection.autocommit = True
 
 cursor = connection.cursor()
 
-
 sql = 'SELECT * FROM staging.FdaApiIncident LIMIT 1000'
 
 cursor.execute(sql)

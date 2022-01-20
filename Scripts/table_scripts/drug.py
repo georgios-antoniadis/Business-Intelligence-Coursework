@@ -56,10 +56,13 @@ def drugs(cursor):
         else:
             dosage_form = row[5]
 
-        if row[9] == 'NaN':
+        #Boolean check
+        if row[9] == 'NaN' or 'Yes' and 'No' in row[9] or row[9] == 'Not applicable':
             used_according_to_label = None
-        else:   
-            used_according_to_label = row[9]  
+        elif 'Yes' in row[9]:   
+            used_according_to_label = True
+        elif 'No' in row[9]:
+            used_according_to_label = False  
 
         if row[12] == 'NaN':
             first_exposure_date = None
@@ -71,16 +74,21 @@ def drugs(cursor):
         else:
             last_exposure_date = row[13]
 
-        if row[15] == 'NaN':
-            previous_exposure_to_drug = None
-        else:   
-            previous_exposure_to_drug = row[15]  
-
-        if row[16] == 'NaN':
+        #Boolean check
+        if row[16] == 'NaN' or 'Yes' and 'No' in row[16] or row[16] == 'Not applicable':
             previous_ae_to_drug = None
-        else:   
-            previous_ae_to_drug = row[16]  
+        elif 'Yes' in row[16]:   
+            previous_ae_to_drug = True
+        elif 'No' in row[16]:
+            previous_ae_to_drug = False  
 
+        #Boolean check
+        if row[15] == 'NaN' or 'Yes' and 'No' in row[15] or row[15] == 'Not applicable':
+            previous_exposure_to_drug = None
+        elif 'Yes' in row[15]:   
+            previous_exposure_to_drug = True
+        elif 'No' in row[15]:
+            previous_exposure_to_drug = False 
 
         insert_drug2 = """
         INSERT INTO temp.drug(
