@@ -49,7 +49,7 @@ CREATE TABLE temp.animal(
     age                                 DECIMAL(21,6),
     age_unit 	                        VARCHAR(128),
     "weight_kg"    	                    DECIMAL(21,6),
-    is_crossbred 	                    VARCHAR(128),
+    is_crossbred 	                    BOOLEAN,
     breed_component 	                VARCHAR(640),
     reproductive_status 	            VARCHAR(128)
 );
@@ -61,15 +61,15 @@ CREATE TABLE temp.drug(
     dosage_form                         VARCHAR(128),
     used_according_to_label             BOOLEAN,
     off_label_use                       VARCHAR(128),
-    first_exposure_date                 VARCHAR(128),
-    last_exposure_date                  VARCHAR(128),
+    first_exposure_date                 DATE,
+    last_exposure_date                  DATE,
     administered_by                     VARCHAR(128),
     previous_exposure_to_drug           BOOLEAN,
     previous_ae_to_drug                 BOOLEAN,
-    frequency_of_administration_value   VARCHAR(128),
+    frequency_of_administration_value   NUMERIC,
     frequency_of_administration_unit    VARCHAR(128),
-    ae_abated_after_stopping_drug       VARCHAR(128),
-    ae_reappeared_after_resuming_drug   VARCHAR(128)
+    ae_abated_after_stopping_drug       BOOLEAN,
+    ae_reappeared_after_resuming_drug   BOOLEAN
 );
 
 CREATE TABLE temp.incident(
@@ -80,7 +80,7 @@ CREATE TABLE temp.incident(
     animals_affected                                NUMERIC,
     animals_treated                                 NUMERIC,
     health_assessment_prior_to_exposure_condition   VARCHAR(128),
-    onset_date                                      VARCHAR(128),
+    onset_date                                      DATE,
     treated_for_ae                                  BOOLEAN,
     time_between_exposure_and_onset                 VARCHAR(64),
     serious_ae                                      VARCHAR(8)

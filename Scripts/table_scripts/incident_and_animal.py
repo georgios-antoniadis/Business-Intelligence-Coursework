@@ -1,4 +1,52 @@
+from datetime import date
 from xmlrpc.client import boolean
+import re
+
+def breedCheck(breed_component):
+
+    component = str(breed_component)
+
+    patBetween = r'\,(.*?)\,'
+    patAfter = r'\{(.*?)\}'
+
+    between = re.findall(patBetween, component)
+    after = re.findall(patAfter, component)
+
+    # Rule for deleting ubnormal entries
+    if len(between) > 1 or len(after) > 1:
+        component = 'NaN'
+    else:
+        component = str(breed_component)
+
+    return component    
+
+def dateCheck(date_to_check):
+    #Convesions are:
+    if len(date_to_check) == 8:
+        date_to_return = date_to_check
+    elif len(date_to_check) == 6: #If type is YYYYMM we assume the first of that month
+        date_to_return = date_to_check + '01'
+    elif len(date_to_check) == 4: #If type is YYYY we assume the first of January
+        date_to_return = date_to_check + '0101'
+    elif len(date_to_check) == 19: #If type is {YYYYMMDD, YYYYMMDD} we assume the first date YYYYMMDD
+        pattern = r'\{(.*?)\,' 
+        datePat = re.findall(pattern,date_to_check)
+        date_to_return = datePat[0]
+
+    return date_to_return
+
+def booleanCheck(boolean_to_check):
+    #BOOLEAN
+    if boolean_to_check == 'NaN' or boolean_to_check == '' or boolean_to_check == 'Unknown': 
+        boolean_to_return = None
+    elif 'Yes' in boolean_to_check and 'No' not in boolean_to_check:
+        boolean_to_return = True
+    elif 'No' in boolean_to_check and 'Yes' not in boolean_to_check:
+        boolean_to_return = False
+    else: #This also includes values when there is Yes and No inside the field
+        boolean_to_return = None
+    
+    return boolean_to_return
 
 
 def incident_and_animals(cursor):
@@ -24,10 +72,8 @@ def incident_and_animals(cursor):
 
         if row[2] == 'NaN' or row[2] == 'unknown' or row[2] == 'Unknown':
             original_receive_date = None
-        elif len(row[2]) > 9:
-            original_receive_date = row[2][1:10]
         else:
-            original_receive_date = row[2]
+            original_receive_date = dateCheck(row[2])
         
         if row[3] == 'NaN' or row[3] == '':
             number_of_animals_affected = 0
@@ -46,7 +92,6 @@ def incident_and_animals(cursor):
         if number_of_animals_treated == 0:
             number_of_animals_treated = number_of_animals_affected
 
-        #End of resolving issues with inconsistency between the treated and affected
 
         if row[4] == '' or row[4] == 'unknown':
             primary_reporter = 'NaN'
@@ -56,12 +101,12 @@ def incident_and_animals(cursor):
         if row[6] == 'NaN':
             onset_date = None
         else:
-            onset_date = row[6]
+            onset_date = dateCheck(row[6])
 
         if row[30] == 'NaN':
             treated_for_ae = None
         else:
-            treated_for_ae = row[30]
+            treated_for_ae = booleanCheck(row[30])
         
         if row[32] == '':
             health_assessment_prior_to_exposure_condition = 'NaN'
@@ -131,26 +176,27 @@ def incident_and_animals(cursor):
         else:
             age_unit = row[20]
 
+        #FLOAT
         if row[19] == 'NaN' or row[19] == '':
             age = None
         else:
-            age = row[19]
+            age = float(row[19])
 
+        #FLOAT
         if row[22] == 'NaN' or row[22] == '':
             weight = None
         else:
-            weight = row[22]
+            weight = float(row[22])
         
-        # if row[25] == 'NaN' or row[25] == '' or row == 'Unknown': 
-        if isinstance(row[25],boolean): #Checking if the value is boolean
-            is_crossbred = None
-        else:
-            is_crossbred = row[25]
+        #BOOLEAN
+        is_crossbred = booleanCheck(row[25])
 
+        #SPECIAL CASE BREED COMPONENT
         if row[26] == [] or row[26] == '' or row == 'Unknown':
             breed_component = 'NaN'
         else:
-            breed_component = row[26]
+            component = breedCheck(breed_component)
+            breed_component = component
 
         if row[29] == []:
             reproductive_status = 'NaN'

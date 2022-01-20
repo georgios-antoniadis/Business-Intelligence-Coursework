@@ -1,3 +1,33 @@
+import re
+
+def dateCheck(date_to_check):
+    #Convesions are:
+    if len(date_to_check) == 8:
+        date_to_return = date_to_check
+    elif len(date_to_check) == 6: #If type is YYYYMM we assume the first of that month
+        date_to_return = date_to_check + '01'
+    elif len(date_to_check) == 4: #If type is YYYY we assume the first of January
+        date_to_return = date_to_check + '0101'
+    elif len(date_to_check) == 19: #If type is {YYYYMMDD, YYYYMMDD} we assume the first date YYYYMMDD
+        pattern = r'\{(.*?)\,' 
+        datePat = re.findall(pattern,date_to_check)
+        date_to_return = datePat[0]
+
+    return date_to_return
+
+def booleanCheck(boolean_to_check):
+    #BOOLEAN
+    if boolean_to_check == 'NaN' or boolean_to_check == '' or boolean_to_check == 'Unknown': 
+        boolean_to_return = None
+    elif 'Yes' in boolean_to_check and 'No' not in boolean_to_check:
+        boolean_to_return = True
+    elif 'No' in boolean_to_check and 'Yes' not in boolean_to_check:
+        boolean_to_return = False
+    else: #This also includes values when there is Yes and No inside the field
+        boolean_to_return = None
+    
+    return boolean_to_return
+
 def drugs(cursor):
     print("============================================================")
     print("Starting to insert drugs....")
@@ -41,54 +71,35 @@ def drugs(cursor):
         else:
             frequency_of_administration_unit = row[19]
 
-        if row[24] == [] or row[24] == '' or row[24] == 'Unknown':
-            ae_abated_after_stopping_drug = 'NaN'
-        else:
-            ae_abated_after_stopping_drug = row[24]
+        #BOOLEAN
+        ae_abated_after_stopping_drug = booleanCheck(row[24])
 
-        if row[25] == [] or row[25] == '' or row[25] == 'Unknown':
-            ae_reappeared_after_resuming_drug = 'NaN'
-        else:
-            ae_reappeared_after_resuming_drug = row[25]  
+        #BOOLEAN
+        ae_reappeared_after_resuming_drug = booleanCheck(row[25])
         
         if row[5] == '' or row[5] == 'unknown' or row[5] == 'Unknown':
             dosage_form = 'NaN'
         else:
             dosage_form = row[5]
 
-        #Boolean check
-        if row[9] == 'NaN' or 'Yes' and 'No' in row[9] or row[9] == 'Not applicable':
-            used_according_to_label = None
-        elif 'Yes' in row[9]:   
-            used_according_to_label = True
-        elif 'No' in row[9]:
-            used_according_to_label = False  
+        #BOOLEAN
+        used_according_to_label = booleanCheck(row[9])
 
         if row[12] == 'NaN':
             first_exposure_date = None
         else:
-            first_exposure_date = row[12]
+            first_exposure_date = dateCheck(row[12])
 
         if row[13] == 'NaN':
             last_exposure_date = None
         else:
-            last_exposure_date = row[13]
+            last_exposure_date = dateCheck(row[13])
 
         #Boolean check
-        if row[16] == 'NaN' or 'Yes' and 'No' in row[16] or row[16] == 'Not applicable':
-            previous_ae_to_drug = None
-        elif 'Yes' in row[16]:   
-            previous_ae_to_drug = True
-        elif 'No' in row[16]:
-            previous_ae_to_drug = False  
+        previous_ae_to_drug = booleanCheck(row[16])
 
         #Boolean check
-        if row[15] == 'NaN' or 'Yes' and 'No' in row[15] or row[15] == 'Not applicable':
-            previous_exposure_to_drug = None
-        elif 'Yes' in row[15]:   
-            previous_exposure_to_drug = True
-        elif 'No' in row[15]:
-            previous_exposure_to_drug = False 
+        previous_exposure_to_drug = booleanCheck(row[15])
 
         insert_drug2 = """
         INSERT INTO temp.drug(
