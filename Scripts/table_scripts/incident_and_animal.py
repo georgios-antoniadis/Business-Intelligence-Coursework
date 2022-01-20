@@ -136,7 +136,7 @@ def incident_and_animals(cursor):
             time_between_exposure_and_onset,
             serious_ae
             )                     	                                
-        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
         """ 
 
         cursor.execute(insert_incident,[\
@@ -174,13 +174,16 @@ def incident_and_animals(cursor):
         if row[20] == [] or row[20] == '' or row[20] == 'Unknown' or row[20] == 'unknown':
             age_unit = 'NaN'
         else:
-            age_unit = row[20]
+            age_unit = 'Year' #Regulating age unit
 
         #FLOAT
         if row[19] == 'NaN' or row[19] == '':
             age = None
         else:
-            age = float(row[19])
+            if 'Month' in age_unit:
+                age = float(row[19])/12 #Transforming all ages into years
+            else:
+                age = float(row[19])
 
         #FLOAT
         if row[22] == 'NaN' or row[22] == '':
@@ -195,8 +198,7 @@ def incident_and_animals(cursor):
         if row[26] == [] or row[26] == '' or row == 'Unknown':
             breed_component = 'NaN'
         else:
-            component = breedCheck(breed_component)
-            breed_component = component
+            breed_component = breedCheck(row[26])
 
         if row[29] == []:
             reproductive_status = 'NaN'

@@ -27,68 +27,68 @@ DROP TABLE if exists temp.drug;
 DROP TABLE if exists temp.active_ingredient;
 
 CREATE TABLE temp.active_ingredient(
-    p_record_id            VARCHAR(128),
-    ingredient_id          VARCHAR(128),
-    active_ingredient_name VARCHAR(256)
+    p_record_id            VARCHAR(28),
+    ingredient_id          VARCHAR(20),
+    active_ingredient_name VARCHAR(200)
 );
 
 CREATE TABLE temp.reaction(
-    p_record_id                 VARCHAR(128),
-    reaction_id                 VARCHAR(128),
-    veddra_version              VARCHAR(128),
-    veddra_term_code            VARCHAR(128),
-    veddra_term_name            VARCHAR(128),
+    p_record_id                 VARCHAR(28),
+    reaction_id                 VARCHAR(20),
+    veddra_version              VARCHAR(2),
+    veddra_term_code            VARCHAR(5),
+    veddra_term_name            VARCHAR(88),
     number_of_animals_affected  NUMERIC
 );
 
 CREATE TABLE temp.animal(
-    p_record_id                         VARCHAR(128),
-    animal_id                           VARCHAR(128),
-    species 	                        VARCHAR(128),
-    gender 	                            VARCHAR(128),
+    p_record_id                         VARCHAR(28),
+    animal_id                           VARCHAR(20),
+    species 	                        VARCHAR(19),
+    gender 	                            VARCHAR(7),
     age                                 DECIMAL(21,6),
-    age_unit 	                        VARCHAR(128),
+    age_unit 	                        VARCHAR(6),
     "weight_kg"    	                    DECIMAL(21,6),
     is_crossbred 	                    BOOLEAN,
-    breed_component 	                VARCHAR(640),
-    reproductive_status 	            VARCHAR(128)
+    breed_component 	                VARCHAR(532),
+    reproductive_status 	            VARCHAR(8)
 );
 
 CREATE TABLE temp.drug(
-    p_record_id                         VARCHAR(128),
-    drug_id                             VARCHAR(128),
-    "route"                             VARCHAR(64),
-    dosage_form                         VARCHAR(128),
+    p_record_id                         VARCHAR(28),
+    drug_id                             VARCHAR(20),
+    "route"                             VARCHAR(24),
+    dosage_form                         VARCHAR(46),
     used_according_to_label             BOOLEAN,
     off_label_use                       VARCHAR(128),
     first_exposure_date                 DATE,
     last_exposure_date                  DATE,
-    administered_by                     VARCHAR(128),
+    administered_by                     VARCHAR(30),
     previous_exposure_to_drug           BOOLEAN,
     previous_ae_to_drug                 BOOLEAN,
     frequency_of_administration_value   NUMERIC,
-    frequency_of_administration_unit    VARCHAR(128),
+    frequency_of_administration_unit    VARCHAR(6),
     ae_abated_after_stopping_drug       BOOLEAN,
     ae_reappeared_after_resuming_drug   BOOLEAN
 );
 
 CREATE TABLE temp.incident(
-    p_record_id                                     VARCHAR(128),
-    incident_id                                     VARCHAR(128),
-    primary_reporter                                VARCHAR(128),
+    p_record_id                                     VARCHAR(28),
+    incident_id                                     VARCHAR(20),
+    primary_reporter                                VARCHAR(49),
     receive_date                                    DATE,
     animals_affected                                NUMERIC,
     animals_treated                                 NUMERIC,
-    health_assessment_prior_to_exposure_condition   VARCHAR(128),
+    health_assessment_prior_to_exposure_condition   VARCHAR(12),
     onset_date                                      DATE,
     treated_for_ae                                  BOOLEAN,
-    time_between_exposure_and_onset                 VARCHAR(64),
+    time_between_exposure_and_onset                 VARCHAR(24),
     serious_ae                                      VARCHAR(8)
 );
 
 CREATE TABLE temp.outcome(
-    p_record_id                         VARCHAR(128),
-    outcome_id                          VARCHAR(128),
+    p_record_id                         VARCHAR(28),
+    outcome_id                          VARCHAR(20),
     outcome_medical_status              VARCHAR(128),
     outcome_number_of_animals_affected  NUMERIC
 );

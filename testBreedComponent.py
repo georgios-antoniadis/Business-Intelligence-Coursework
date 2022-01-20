@@ -34,7 +34,7 @@ for row in results:
 
         # Rule for deleting ubnormal entries
         if len(between) > 1 or len(after) > 1:
-            # print(breed_component)
+            print(breed_component)
             counter += 1
 
 print(counter)

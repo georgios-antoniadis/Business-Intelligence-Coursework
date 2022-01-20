@@ -382,13 +382,13 @@ def update_fact_incident(cursor):
 
 if __name__ == '__main__':
     cursor, connection = connect()
-    # dim_Animal(cursor)
-    # dim_Outcome(cursor)
-    # dim_Drug(cursor)
-    # dim_Reaction(cursor)
+    dim_Animal(cursor)
+    dim_Outcome(cursor)
+    dim_Drug(cursor)
+    dim_Reaction(cursor)
 
-    # fact_Animal(cursor)
-    # fact_Incident(cursor)
+    fact_Animal(cursor)
+    fact_Incident(cursor)
     fact_Drug(cursor)
 
     update_fact_animal(cursor)
