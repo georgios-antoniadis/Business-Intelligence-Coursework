@@ -158,7 +158,7 @@ CREATE TABLE dw.Fact_Incident(
 
 CREATE TABLE dw.Fact_Drug(
     aer                                 VARCHAR(128),
-    drug_id                             VARCHAR(128),
+    drug_id                             VARCHAR(640),
     "route"                             VARCHAR(64),
     dosage_form                         VARCHAR(128),
     used_according_to_label             BOOLEAN,

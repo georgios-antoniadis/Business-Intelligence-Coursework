@@ -34,7 +34,7 @@ def connect():
 
 def dim_Animal(cursor):
 
-    print("Creating dimesnion table animal")
+    print("Inserting dimension table animal")
     print("")
 
     dim_animal_sql = """
@@ -49,7 +49,7 @@ def dim_Animal(cursor):
 
 def fact_Animal(cursor):
 
-    print("Creating fact table animal")
+    print("Inserting fact table animal")
     print("")
 
     fact_animal_sql = """
@@ -79,7 +79,7 @@ def fact_Animal(cursor):
 
 def dim_Outcome(cursor):
 
-    print("Creating dimesnion table outcome")
+    print("Inserting dimension table outcome")
     print("")
 
     dim_outcome_sql = """
@@ -94,7 +94,7 @@ def dim_Outcome(cursor):
 
 def dim_Reaction(cursor):
 
-    print("Creating dimesnion table reaction")
+    print("Inserting dimension table reaction")
     print("")
 
     dim_reaction_sql = """
@@ -110,7 +110,7 @@ def dim_Reaction(cursor):
 
 def fact_Incident(cursor):
 
-    print("Creating fact table incident")
+    print("Inserting fact table incident")
     print("")
 
     fact_incident_sql = """
@@ -206,7 +206,7 @@ def fact_Incident(cursor):
 
 def fact_Drug(cursor):
 
-    print("Creating fact table drug")
+    print("Inserting fact table drug")
     print("")
 
     fact_drug_sql = """
@@ -264,7 +264,7 @@ def fact_Drug(cursor):
 
 def dim_Drug(cursor):
 
-    print("Creating dimesnion table drug")
+    print("Inserting dimension table drug")
     print("")
 
     dim_reaction_sql = """
