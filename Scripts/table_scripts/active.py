@@ -15,6 +15,8 @@ def active_ingredients(cursor):
 
         ingredient_id = 'INGREDIENT'+str(counter)
         counter += 1
+        
+        drug_id = row[2]
 
         if row[3] == [] or row[3] == 'unknown' or row[3] == 'Unknown':
             active_ingredient_name = 'NaN'
@@ -23,11 +25,12 @@ def active_ingredients(cursor):
 
         insert_active_ingredient = """
         INSERT INTO temp.active_ingredient(  
-            p_record_id,       
+            p_record_id,
+            drug_id,
             ingredient_id,           
             active_ingredient_name
             )                  
         VALUES (%s, %s, %s)
         """
 
-        cursor.execute(insert_active_ingredient,[p_record_id, ingredient_id, active_ingredient_name])
+        cursor.execute(insert_active_ingredient,[p_record_id, drug_id, ingredient_id, active_ingredient_name])

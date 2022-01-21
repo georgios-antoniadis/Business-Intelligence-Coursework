@@ -1,16 +1,9 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Jan 17 10:18:54 2022
-
-@author: pgk
-"""
-
 import psycopg2
 
 connection = psycopg2.connect(host='localhost',
                                             database='vets_dw',
                                             user='postgres',
-                                            password='password')
+                                            password='sa')
 connection.autocommit = True
 cursor = connection.cursor()
 
@@ -27,68 +20,69 @@ DROP TABLE if exists temp.drug;
 DROP TABLE if exists temp.active_ingredient;
 
 CREATE TABLE temp.active_ingredient(
-    p_record_id            VARCHAR(28),
-    ingredient_id          VARCHAR(20),
-    active_ingredient_name VARCHAR(200)
+    p_record_id            VARCHAR(64),
+    drug_id                VARCHAR(8),
+    ingredient_id          VARCHAR(128),
+    active_ingredient_name VARCHAR(256)
 );
 
 CREATE TABLE temp.reaction(
-    p_record_id                 VARCHAR(28),
-    reaction_id                 VARCHAR(20),
-    veddra_version              VARCHAR(2),
-    veddra_term_code            VARCHAR(5),
-    veddra_term_name            VARCHAR(88),
+    p_record_id                 VARCHAR(64),
+    reaction_id                 VARCHAR(128),
+    veddra_version              VARCHAR(128),
+    veddra_term_code            VARCHAR(128),
+    veddra_term_name            VARCHAR(128),
     number_of_animals_affected  NUMERIC
 );
 
 CREATE TABLE temp.animal(
-    p_record_id                         VARCHAR(28),
-    animal_id                           VARCHAR(20),
-    species 	                        VARCHAR(19),
-    gender 	                            VARCHAR(7),
+    p_record_id                         VARCHAR(64),
+    animal_id                           VARCHAR(128),
+    species 	                        VARCHAR(128),
+    gender 	                            VARCHAR(128),
     age                                 DECIMAL(21,6),
-    age_unit 	                        VARCHAR(6),
+    age_unit 	                        VARCHAR(128),
     "weight_kg"    	                    DECIMAL(21,6),
     is_crossbred 	                    BOOLEAN,
-    breed_component 	                VARCHAR(532),
-    reproductive_status 	            VARCHAR(8)
+    breed_component 	                VARCHAR(640),
+    reproductive_status 	            VARCHAR(128)
 );
 
 CREATE TABLE temp.drug(
-    p_record_id                         VARCHAR(28),
-    drug_id                             VARCHAR(20),
-    "route"                             VARCHAR(24),
-    dosage_form                         VARCHAR(46),
+    p_record_id                         VARCHAR(64),
+    drug_id                             VARCHAR(8),
+    "route"                             VARCHAR(64),
+    dosage_form                         VARCHAR(128),
     used_according_to_label             BOOLEAN,
     off_label_use                       VARCHAR(128),
     first_exposure_date                 DATE,
     last_exposure_date                  DATE,
-    administered_by                     VARCHAR(30),
+    administered_by                     VARCHAR(128),
     previous_exposure_to_drug           BOOLEAN,
     previous_ae_to_drug                 BOOLEAN,
     frequency_of_administration_value   NUMERIC,
-    frequency_of_administration_unit    VARCHAR(6),
+    frequency_of_administration_unit    VARCHAR(128),
     ae_abated_after_stopping_drug       BOOLEAN,
     ae_reappeared_after_resuming_drug   BOOLEAN
 );
 
 CREATE TABLE temp.incident(
-    p_record_id                                     VARCHAR(28),
-    incident_id                                     VARCHAR(20),
-    primary_reporter                                VARCHAR(49),
+    p_record_id                                     VARCHAR(64),
+    incident_id                                     VARCHAR(128),
+    primary_reporter                                VARCHAR(128),
     receive_date                                    DATE,
     animals_affected                                NUMERIC,
     animals_treated                                 NUMERIC,
-    health_assessment_prior_to_exposure_condition   VARCHAR(12),
+    health_assessment_prior_to_exposure_condition   VARCHAR(128),
     onset_date                                      DATE,
     treated_for_ae                                  BOOLEAN,
-    time_between_exposure_and_onset                 VARCHAR(24),
+    time_between_exposure_and_onset                 VARCHAR(64),
     serious_ae                                      VARCHAR(8)
 );
 
 CREATE TABLE temp.outcome(
-    p_record_id                         VARCHAR(28),
-    outcome_id                          VARCHAR(20),
+    p_record_id                         VARCHAR(64),
+    outcome_id                          VARCHAR(128),
     outcome_medical_status              VARCHAR(128),
     outcome_number_of_animals_affected  NUMERIC
 );
@@ -115,7 +109,7 @@ CREATE TABLE dw.Dim_Animal(
 );
 
 CREATE TABLE dw.Fact_animal(
-    aer                         VARCHAR(128),
+    aer                         VARCHAR(64),
     animal_id                   VARCHAR(128),
     gender 	                    VARCHAR(128),
     age                         DECIMAL(21,6),
@@ -127,22 +121,23 @@ CREATE TABLE dw.Fact_animal(
 );
 
 CREATE TABLE dw.Dim_Outcome(
-    outcome_id               VARCHAR(128),
+    outcome_id               INT,
     outcome_medical_status   VARCHAR(128)
 );
 
 CREATE TABLE dw.Dim_Reaction(
-    reaction_id                 VARCHAR(128),
+    reaction_id                 INT,
     veddra_version              VARCHAR(128),
     veddra_term_code            VARCHAR(128),
     veddra_term_name            VARCHAR(128)
 );
 
 CREATE TABLE dw.Fact_Incident(
-    aer                                             VARCHAR(128),
-    reaction_id                                     VARCHAR(128),
-    outcome_id                                      VARCHAR(128),
-    drug_id                                         VARCHAR(256),
+    fact_incident_id                                INT,
+    aer                                             VARCHAR(64),
+    reaction_id                                     INT,
+    outcome_id                                      INT,
+    drug_id                                         INT,
     primary_reporter                                VARCHAR(128),
     total_animals_affected                          NUMERIC,
     total_animals_treated                           NUMERIC,
@@ -157,7 +152,7 @@ CREATE TABLE dw.Fact_Incident(
 );
 
 CREATE TABLE dw.Fact_Drug(
-    aer                                 VARCHAR(128),
+    aer                                 VARCHAR(64),
     drug_id                             VARCHAR(128),
     "route"                             VARCHAR(64),
     dosage_form                         VARCHAR(128),
@@ -176,7 +171,7 @@ CREATE TABLE dw.Fact_Drug(
 
 
 CREATE TABLE dw.Dim_Drug(
-    drug_id                     VARCHAR(128),
+    drug_id                     INT,
     active_ingredient_name      VARCHAR(256)
 );
 
