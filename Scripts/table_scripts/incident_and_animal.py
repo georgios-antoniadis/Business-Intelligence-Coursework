@@ -195,7 +195,7 @@ def incident_and_animals(cursor):
         is_crossbred = booleanCheck(row[25])
 
         #SPECIAL CASE BREED COMPONENT
-        if row[26] == [] or row[26] == '' or row == 'Unknown':
+        if row[26] == [] or row[26] == '' or row[26] == 'Unknown':
             breed_component = 'NaN'
         else:
             breed_component = breedCheck(row[26])
