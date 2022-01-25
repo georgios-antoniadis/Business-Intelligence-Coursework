@@ -11,30 +11,31 @@ def connect():
     connection = psycopg2.connect(host='localhost',
                                             database='vets_dw',
                                             user='postgres',
-                                            password='sa')
+                                            password='password')
     connection.autocommit = True
 
     cursor = connection.cursor()
 
-    # truncTables = ['temp.reaction',
-    #                 'temp.animal',
-    #                 'temp.incident',
-    #                 'temp.outcome',
-    #                 'temp.drug',
-    #                 'temp.active_ingredient']
+    truncTables = [#'temp.reaction',
+                    # 'temp.animal',
+                    # 'temp.incident',
+                    #'temp.outcome',
+                    #'temp.drug'
+                    'temp.active_ingredient'
+                    ]
 
-    # for table in truncTables:
-    #         cursor.execute('TRUNCATE TABLE ' + table)
-    # print('Truncated tables!')
+    for table in truncTables:
+            cursor.execute('TRUNCATE TABLE ' + table)
+    print('Truncated tables!')
     
     return cursor, connection
 
 if __name__ == '__main__':
     cursor, connection = connect()
-    reactions(cursor)
-    outcomes(cursor)
+    # reactions(cursor)
+    # outcomes(cursor)
     active_ingredients(cursor)
-    drugs(cursor)
-    incident_and_animals(cursor) 
+    # drugs(cursor)
+    # incident_and_animals(cursor) 
     connection.close()
     cursor.close()

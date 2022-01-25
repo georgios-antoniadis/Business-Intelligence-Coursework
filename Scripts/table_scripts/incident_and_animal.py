@@ -39,9 +39,9 @@ def booleanCheck(boolean_to_check):
     #BOOLEAN
     if boolean_to_check == 'NaN' or boolean_to_check == '' or boolean_to_check == 'Unknown': 
         boolean_to_return = None
-    elif 'Yes' in boolean_to_check and 'No' not in boolean_to_check:
+    elif 'true' in boolean_to_check and 'false' not in boolean_to_check:
         boolean_to_return = True
-    elif 'No' in boolean_to_check and 'Yes' not in boolean_to_check:
+    elif 'false' in boolean_to_check and 'true' not in boolean_to_check:
         boolean_to_return = False
     else: #This also includes values when there is Yes and No inside the field
         boolean_to_return = None
@@ -169,21 +169,27 @@ def incident_and_animals(cursor):
         if row[17] == [] or row[17] == '' or row[17] == 'Unknown' or row[17] == 'unknown':
             gender = 'NaN'
         else:
-            gender = row[17]
-        
-        if row[20] == [] or row[20] == '' or row[20] == 'Unknown' or row[20] == 'unknown':
-            age_unit = 'NaN'
-        else:
-            age_unit = 'Year' #Regulating age unit
+            gender = row[17] 
 
-        #FLOAT
+        #Regulating age unit
         if row[19] == 'NaN' or row[19] == '':
             age = None
         else:
-            if 'Month' in age_unit:
+            if 'Month' in row[20]:
                 age = float(row[19])/12 #Transforming all ages into years
-            else:
+            elif 'Day' in row[20]:
+                age = float(row[19]) / 365
+            elif 'Week' in row[20]:
+                age = float(row[19]) / 52
+            elif 'Year' in row[20]:
                 age = float(row[19])
+            else: #This final statement check for entries like minute and second
+                age = 0 
+
+        if row[20] == [] or row[20] == '' or row[20] == 'Unknown' or row[20] == 'unknown':
+            age_unit = 'NaN'
+        else:
+            age_unit = 'Year'
 
         #FLOAT
         if row[22] == 'NaN' or row[22] == '':

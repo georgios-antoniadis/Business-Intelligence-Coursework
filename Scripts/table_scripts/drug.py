@@ -19,9 +19,9 @@ def booleanCheck(boolean_to_check):
     #BOOLEAN
     if boolean_to_check == 'NaN' or boolean_to_check == '' or boolean_to_check == 'Unknown': 
         boolean_to_return = None
-    elif 'Yes' in boolean_to_check and 'No' not in boolean_to_check:
+    elif 'true' in boolean_to_check and 'false' not in boolean_to_check:
         boolean_to_return = True
-    elif 'No' in boolean_to_check and 'Yes' not in boolean_to_check:
+    elif 'false' in boolean_to_check and 'true' not in boolean_to_check:
         boolean_to_return = False
     else: #This also includes values when there is Yes and No inside the field
         boolean_to_return = None
@@ -43,8 +43,10 @@ def drugs(cursor):
 
         p_record_id = row[0]
 
-        drug_id = 'DRUG'+str(counter)
-        counter +=1 
+        # drug_id = 'DRUG'+str(counter)
+        # counter +=1 
+
+        drug_id = row[1] #Drug id from staging
 
         if row[3] == [] or row[3] == '' or row[3] == 'Unknown' or row[3] == 'unknown':
             route = 'NaN'

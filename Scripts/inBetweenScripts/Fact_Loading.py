@@ -77,8 +77,7 @@ def fact_Drug(cursor):
     DRG.frequency_of_administration_unit,
     DRG.ae_abated_after_stopping_drug,
     DRG.ae_reappeared_after_resuming_drug
-    FROM temp.drug DRG
-
+    FROM temp.drug DRG, temp.active_ingredient ACT
     --INNER JOIN temp.incident INC
     --ON DRG.p_record_id = INC.p_record_id
     INNER JOIN temp.active_ingredient ACT
@@ -139,8 +138,7 @@ def fact_Incident(cursor):
 	  INNER JOIN temp.reaction REA
 	  ON INC.p_record_id = REA.p_record_id
 	  INNER JOIN dw.Dim_Drug DW_DRG
-      ON DW_DRG.active_ingredient_name = ACT.active_ingredient_name
-   
+      ON DW_DRG.active_ingredient_name = ACT.active_ingredient_name  
     
     """
     

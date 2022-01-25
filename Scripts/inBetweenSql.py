@@ -9,7 +9,7 @@ def connect():
     connection = psycopg2.connect(host='localhost',
                                             database='vets_dw',
                                             user='postgres',
-                                            password='sa')
+                                            password='password')
     connection.autocommit = True
 
     cursor = connection.cursor()
