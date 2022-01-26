@@ -14,16 +14,20 @@ def connect():
 
     cursor = connection.cursor()
 
-    # truncTables = ['temp.reaction',
-    #                 'temp.animal',
-    #                 'temp.incident',
-    #                 'temp.outcome',
-    #                 'temp.drug',
-    #                 'temp.active_ingredient']
+    truncTables = ['dw.dim_animal',
+                    'dw.dim_outcome',
+                    'dw.dim_reaction',
+                    'dw.dim_date',
+                    'dw.dim_drug',
+                    'dw.fact_animal',
+                    'dw.fact_drug',
+                    'dw.fact_incident',
+                    'dw.fact_outcome',
+                    'dw.fact_reaction']
 
-    # for table in truncTables:
-    #         cursor.execute('TRUNCATE TABLE ' + table)
-    # print('Truncated tables!')
+    for table in truncTables:
+            cursor.execute('TRUNCATE TABLE ' + table)
+    print('Truncated tables!')
     
     return cursor, connection
 
@@ -40,3 +44,5 @@ if __name__ == '__main__':
     Fact_Loading.Load_Fact_Animal(cursor)
     Fact_Loading.fact_Drug(cursor)
     Fact_Loading.fact_Incident(cursor)
+    Fact_Loading.Load_Fact_Outcome(cursor)
+    Fact_Loading.Load_Fact_Reaction(cursor)

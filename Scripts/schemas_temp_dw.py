@@ -3,7 +3,7 @@ import psycopg2
 connection = psycopg2.connect(host='localhost',
                                             database='vets_dw',
                                             user='postgres',
-                                            password='sa')
+                                            password='password')
 connection.autocommit = True
 cursor = connection.cursor()
 
@@ -87,7 +87,7 @@ CREATE TABLE temp.outcome(
     outcome_number_of_animals_affected  NUMERIC
 );
 '''
-#cursor.execute(TEMPTABLES)
+cursor.execute(TEMPTABLES)
 
 
 

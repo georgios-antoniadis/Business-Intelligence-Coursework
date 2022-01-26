@@ -16,11 +16,11 @@ def connect():
 
     cursor = connection.cursor()
 
-    truncTables = [#'temp.reaction',
-                    # 'temp.animal',
-                    # 'temp.incident',
-                    #'temp.outcome',
-                    #'temp.drug'
+    truncTables = ['temp.reaction',
+                    'temp.animal',
+                    'temp.incident',
+                    'temp.outcome',
+                    'temp.drug',
                     'temp.active_ingredient'
                     ]
 
@@ -32,10 +32,10 @@ def connect():
 
 if __name__ == '__main__':
     cursor, connection = connect()
-    # reactions(cursor)
-    # outcomes(cursor)
+    reactions(cursor)
+    outcomes(cursor)
     active_ingredients(cursor)
-    # drugs(cursor)
-    # incident_and_animals(cursor) 
+    drugs(cursor)
+    incident_and_animals(cursor) 
     connection.close()
     cursor.close()
