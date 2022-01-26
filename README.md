@@ -11,4 +11,4 @@ Tools used:
   - Github for code sharing and collaborating
   - Trello for task management
 
-Overview of the system:
+Please follow instruction inside readme.txt file for installation
