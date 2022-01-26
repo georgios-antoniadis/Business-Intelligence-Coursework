@@ -7,8 +7,8 @@ connection = psycopg2.connect(host='localhost',
 connection.autocommit = True
 cursor = connection.cursor()
 
-#cursor.execute('CREATE Schema IF NOT EXISTS temp')
-#cursor.execute('CREATE Schema IF NOT EXISTS dw')
+cursor.execute('CREATE Schema IF NOT EXISTS temp')
+cursor.execute('CREATE Schema IF NOT EXISTS dw')
 
 
 TEMPTABLES ='''

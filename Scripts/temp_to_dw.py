@@ -5,7 +5,6 @@ from inBetweenScripts import Fact_Loading
 import psycopg2
 
 def connect():
-    # try:
     connection = psycopg2.connect(host='localhost',
                                             database='vets_dw',
                                             user='postgres',
